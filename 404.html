@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Pagina niet gevonden — Raven &amp; Barrel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // GitHub Pages serveert dit bestand bij een onbekend pad.
+  // We sturen door naar de winkel, met behoud van een eventuele #/pagina.
+  (function(){
+    var parts = location.pathname.split('/').filter(Boolean);
+    var base = (location.hostname.indexOf('github.io') > -1 && parts.length) ? '/' + parts[0] + '/' : '/';
+    location.replace(base + (location.hash || '#/winkel'));
+  })();
+</script>
+<style>body{background:#0C1216;color:#EDE7DA;font-family:system-ui,sans-serif;display:grid;place-items:center;height:100vh;margin:0;text-align:center}a{color:#A9622F}</style>
+</head>
+<body>
+  <div>
+    <p>Deze pagina bestaat niet.</p>
+    <p><a href="./">Terug naar de winkel</a></p>
+  </div>
+</body>
+</html>
