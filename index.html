@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Raven &amp; Barrel — Whisky, gebotteld in Nederland</title>
+<title>Black Oak Spirits — Whisky, gebotteld in Nederland</title>
 <meta name="description" content="Onafhankelijke bottelaar uit Nederland. Kleine oplages uit zorgvuldig gekozen vaten. Alleen verkoop aan 18 jaar en ouder, met ID-controle bij bezorging.">
 <meta name="theme-color" content="#0C1216">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Raven &amp; Barrel — Whisky, gebotteld in Nederland">
+<meta property="og:title" content="Black Oak Spirits — Whisky, gebotteld in Nederland">
 <meta property="og:description" content="Kleine oplages uit zorgvuldig gekozen vaten. 18+, ID-controle bij bezorging.">
 <meta property="og:locale" content="nl_NL">
 <meta name="twitter:card" content="summary_large_image">
@@ -130,6 +130,7 @@ nav button[aria-current="page"]{color:var(--bone);border-bottom-color:var(--copp
 
 /* producten */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.6rem}
+.grid.single{grid-template-columns:minmax(0,400px);justify-content:center}
 .label{
   background:var(--paper);color:#1A1410;border-radius:2px;padding:1.6rem 1.4rem 1.4rem;
   display:flex;flex-direction:column;gap:.5rem;position:relative;
@@ -137,6 +138,7 @@ nav button[aria-current="page"]{color:var(--bone);border-bottom-color:var(--copp
 }
 .label::after{content:"";position:absolute;inset:8px;border:1px solid rgba(26,20,16,.28);pointer-events:none}
 .label:hover{transform:translateY(-4px);box-shadow:0 30px 50px -26px #000}
+.line-seal{position:absolute;top:-16px;right:-16px;width:74px;height:74px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.45));z-index:3}
 .label .cat{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:#6B5D4C;font-weight:600}
 .label h3{font-size:1.55rem;line-height:1.1}
 .label .spec{font-size:.8rem;color:#5C5044;border-top:1px solid rgba(26,20,16,.2);padding-top:.7rem;margin-top:.3rem}
@@ -215,6 +217,12 @@ nav button[aria-current="page"]{color:var(--bone);border-bottom-color:var(--copp
 .scrim.on{opacity:1;visibility:visible}
 .cart{position:fixed;top:0;right:0;bottom:0;width:min(400px,90vw);background:var(--cellar);border-left:1px solid var(--line);z-index:60;transform:translateX(100%);transition:transform .35s cubic-bezier(.3,.9,.35,1);display:flex;flex-direction:column;padding:1.6rem}
 .cart.on{transform:none}
+.cart{overflow-y:auto}
+.cart .field{margin-bottom:.7rem}
+.cart .field input{padding:.65rem .8rem;font-size:.9rem}
+.pair{display:grid;grid-template-columns:.8fr 1.2fr;gap:.7rem}
+#checkout-form{border-top:1px solid var(--line);padding-top:1.1rem;margin-top:.4rem}
+#checkout-form h4{font-family:var(--body);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 .9rem}
 .cart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem}
 .cart-head h3{font-size:1.3rem}
 .cart-list{flex:1;overflow:auto;list-style:none;margin:0;padding:0}
@@ -266,23 +274,23 @@ footer button:hover{color:var(--copper)}
 <!-- ============ 18+ ZEGEL ============ -->
 <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
   <div id="decline">
-    <p class="gate-mark">Raven &amp; Barrel</p>
+    <p class="gate-mark">Black Oak Spirits</p>
     <h1>Tot over een paar jaar.</h1>
     <p>We verkopen alleen aan mensen van 18 jaar en ouder. Kijk voor meer informatie op <a href="https://www.nix18.nl" target="_blank" rel="noopener" style="color:var(--copper)">nix18.nl</a>.</p>
   </div>
 
   <div class="gate-inner">
-    <p class="gate-mark">Raven &amp; Barrel</p>
+    <p class="gate-mark">Black Oak Spirits</p>
     <h1 id="gate-title">Ben je 18 of ouder?</h1>
     <p>Breek het zegel om de winkel binnen te gaan. We verkopen geen alcohol aan personen onder de 18 jaar.</p>
 
     <button class="seal-btn" id="seal" aria-label="Ik ben 18 jaar of ouder — breek het zegel">
       <div class="seal-stack">
         <svg class="seal-piece l" viewBox="0 0 200 200" aria-hidden="true">
-          <use href="#sealart"></use>
+          <use href="#sealart-bos"></use>
         </svg>
         <svg class="seal-piece r" viewBox="0 0 200 200" aria-hidden="true">
-          <use href="#sealart"></use>
+          <use href="#sealart-bos"></use>
         </svg>
       </div>
       <span class="seal-hint" id="seal-hint">Breek het zegel — ik ben 18+</span>
@@ -307,14 +315,38 @@ footer button:hover{color:var(--copper)}
       <stop offset="70%" stop-color="#7C2A24"/>
       <stop offset="100%" stop-color="#521A16"/>
     </radialGradient>
-    <g id="sealart">
+    <g id="sealbase">
       <path fill="url(#waxg)" d="M100 6c14 0 20 10 33 13s24-3 34 6 3 22 9 34 17 17 17 31-11 19-14 32 3 24-6 34-22 3-34 9-17 17-31 17-19-11-32-14-24 3-34-6-3-22-9-34-17-17-17-31 11-19 14-32-3-24 6-34 22-3 34-9S86 6 100 6z"/>
       <circle cx="100" cy="100" r="72" fill="none" stroke="#4E1A16" stroke-width="1.5" opacity=".8"/>
       <circle cx="100" cy="100" r="66" fill="none" stroke="#C4564A" stroke-width=".8" opacity=".5"/>
       <path d="M62 92c8-14 22-22 38-22 7 0 13 2 19 5l19-9-8 14c6 6 9 13 9 22 0 8-3 15-8 21l6 17-16-11c-6 3-13 5-21 5-16 0-30-8-38-22l-9 3z" fill="#3E110E" opacity=".85"/>
       <text x="100" y="118" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-size="46" fill="#EBD9D5" letter-spacing="1">18+</text>
       <text x="100" y="150" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8.5" fill="#E2C4BF" letter-spacing="3.4">GEEN VERKOOP ONDER 18</text>
+    </g>
+    <g id="sealart"><use href="#sealbase"></use>
       <text x="100" y="62" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8.5" fill="#E2C4BF" letter-spacing="3.4">RAVEN &amp; BARREL</text>
+    </g>
+    <clipPath id="headclip"><circle cx="100" cy="100" r="40"/></clipPath>
+    <g id="acorn">
+      <path d="M-4.2-1.5C-4.2 3.5-2.2 6.8 0 6.8S4.2 3.5 4.2-1.5Z"/>
+      <path d="M-5.4-2.6C-5.4-5.6-3.2-7-0-7S5.4-5.6 5.4-2.6Z"/>
+      <path d="M-.7-7h1.4v-3h-1.4z"/>
+    </g>
+    <g id="sealart-bos">
+      <path fill="url(#waxg)" d="M100 6c14 0 20 10 33 13s24-3 34 6 3 22 9 34 17 17 17 31-11 19-14 32 3 24-6 34-22 3-34 9-17 17-31 17-19-11-32-14-24 3-34-6-3-22-9-34-17-17-17-31 11-19 14-32-3-24 6-34 22-3 34-9S86 6 100 6z"/>
+      <circle cx="100" cy="100" r="72" fill="none" stroke="#4E1A16" stroke-width="1.5" opacity=".8"/>
+      <circle cx="100" cy="100" r="66" fill="none" stroke="#C4564A" stroke-width=".8" opacity=".5"/>
+      <g clip-path="url(#headclip)" stroke="#3E110E" stroke-width="2.4" opacity=".5">
+        <path d="M68 56v88M84 56v88M100 56v88M116 56v88M132 56v88"/>
+      </g>
+      <circle cx="100" cy="100" r="40" fill="none" stroke="#3E110E" stroke-width="2.6" opacity=".7"/>
+      <g fill="#3E110E" opacity=".9">
+        <use href="#acorn" transform="translate(55,102) rotate(-14)"></use>
+        <use href="#acorn" transform="translate(145,102) rotate(14)"></use>
+      </g>
+      <text x="100" y="117" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-size="44" fill="#EBD9D5" letter-spacing="1">18+</text>
+      <text x="100" y="59" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8.5" fill="#E2C4BF" letter-spacing="1.8">BLACK OAK SPIRITS</text>
+      <text x="100" y="152" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8.5" fill="#E2C4BF" letter-spacing="3.4">GEEN VERKOOP ONDER 18</text>
     </g>
   </defs>
 </svg>
@@ -323,7 +355,7 @@ footer button:hover{color:var(--copper)}
 <div class="age-strip">Leeftijdscontrole bij bezorging · geldig ID vereist · geen verkoop onder 18 jaar</div>
 <header>
   <div class="shell bar">
-    <div class="wordmark">Raven <span>&amp;</span> Barrel</div>
+    <div class="wordmark">Black <span>Oak</span> Spirits</div>
     <button class="menu-toggle" id="menu-toggle" aria-expanded="false">Menu</button>
     <nav id="nav">
       <ul>
@@ -350,53 +382,27 @@ footer button:hover{color:var(--copper)}
           <p>Wij kopen volgroeide vaten van distilleerderijen die hun werk al hebben gedaan, en bottelen ze onvermengd onder eigen etiket. Kleine oplages, elke batch anders.</p>
         </div>
         <div class="hero-seal">
-          <svg viewBox="0 0 200 200" width="230" height="230" aria-hidden="true"><use href="#sealart"></use></svg>
+          <svg viewBox="0 0 200 200" width="230" height="230" aria-hidden="true"><use href="#sealart-bos"></use></svg>
         </div>
       </div>
     </div>
 
     <div class="head" style="margin-top:3.5rem">
-      <p class="eyebrow">Het assortiment</p>
-      <h2>Vier bottelingen</h2>
+      <p class="eyebrow">The Spirits</p>
+      <h2>Raven &amp; Barrel</h2>
     </div>
 
-    <div class="grid">
+    <div class="grid single">
       <article class="label">
-        <p class="cat">Blended malt · 46%</p>
+        <svg class="line-seal" viewBox="0 0 200 200" aria-label="Zegel Raven en Barrel"><use href="#sealart"></use></svg>
+        <p class="cat">Single malt · 43%</p>
         <h3>First Flight</h3>
         <p class="note">Onze eerste botteling. Appel, vanille en een droge afdronk van eikenhout. De fles om mee te beginnen.</p>
-        <p class="spec">70 cl · bourbon vat · batch 01 · 480 flessen</p>
-        <p class="price">€ 44,50</p>
-        <button class="buy" data-name="First Flight" data-price="44.50">In winkelwagen</button>
+        <p class="spec">70 cl · bourbon vat · batch 01 · 142 flessen</p>
+        <p class="price">€ 58,50</p>
+        <button class="buy" data-id="first-flight" data-name="First Flight" data-price="58.50">In winkelwagen</button>
       </article>
 
-      <article class="label">
-        <p class="cat">Single malt 12 jaar · 43%</p>
-        <h3>Nightfall</h3>
-        <p class="note">Twaalf jaar in sherryvat. Donkere kersen, walnoot en leer. Zwaar, langzaam, voor na het eten.</p>
-        <p class="spec">70 cl · oloroso sherryvat · batch 01 · 312 flessen</p>
-        <p class="price">€ 62,00</p>
-        <button class="buy" data-name="Nightfall" data-price="62.00">In winkelwagen</button>
-      </article>
-
-      <article class="label">
-        <p class="cat">Peated single malt · 48%</p>
-        <h3>Ember</h3>
-        <p class="note">Turfrook, zeezout en een scherpe peperkant. Niet gefilterd, niet gekleurd, niet subtiel.</p>
-        <p class="spec">70 cl · refill vat · batch 01 · 265 flessen</p>
-        <p class="price">€ 57,50</p>
-        <button class="buy" data-name="Ember" data-price="57.50">In winkelwagen</button>
-      </article>
-
-      <article class="label">
-        <span class="flag">Uitverkocht</span>
-        <p class="cat">Single cask · 43%</p>
-        <h3>Copper Hour</h3>
-        <p class="note">Eén vat, 198 flessen, honing en gedroogde abrikoos. In vier dagen weg. Batch 02 komt in het najaar.</p>
-        <p class="spec">70 cl · first fill bourbon · batch 01 · 198 flessen</p>
-        <p class="price">€ 39,00</p>
-        <div class="sold">Laat je mailen bij batch 02</div>
-      </article>
     </div>
 
     <div class="panel">
@@ -417,11 +423,11 @@ footer button:hover{color:var(--copper)}
 
     <div class="story">
       <div>
-        <p class="lede">Raven &amp; Barrel begon met een simpele vraag: waarom moet je vijftien jaar wachten om een goede whisky op de markt te brengen, als er in Schotland en Ierland duizenden vaten liggen die al klaar zijn?</p>
+        <p class="lede">Black Oak Spirits begon met een simpele vraag: waarom moet je vijftien jaar wachten om een goede whisky op de markt te brengen, als er in Schotland en Ierland duizenden vaten liggen die al klaar zijn?</p>
         <p>Distilleerderijen verkopen die vaten. Niet omdat er iets mis mee is, maar omdat ze meer produceren dan ze onder eigen naam kwijt kunnen. Wij proeven, kiezen, kopen het hele vat en laten het in Nederland bottelen. Zonder karamelkleuring, zonder koudefiltering, zonder een verhaal dat we niet kunnen waarmaken.</p>
         <p class="pull">Eén vat, één batch, één keer. Wat op is, is op.</p>
         <p>Dat betekent dat onze flessen niet altijd hetzelfde smaken. Een tweede batch van dezelfde botteling komt uit een ander vat, en dat proef je. Wij zien dat niet als probleem maar als het hele punt: je drinkt een specifiek vat uit een specifiek jaar, geen gestandaardiseerd product.</p>
-        <p>De raaf op ons zegel staat voor het zoeken. Raven onthouden waar ze iets goeds hebben gevonden en gaan terug. Wij doen hetzelfde met vaten.</p>
+        <p>Raven &amp; Barrel is onze eerste productlijn: de bottelingen waar we zelf het vat voor kiezen. De raaf op het zegel staat voor het zoeken. Raven onthouden waar ze iets goeds hebben gevonden en gaan terug. Wij doen hetzelfde met vaten.</p>
       </div>
 
       <div>
@@ -539,6 +545,20 @@ footer button:hover{color:var(--copper)}
     <span>De bezorger controleert bij aflevering een geldig ID. Zorg dat iemand van 18 jaar of ouder thuis is; anders gaat het pakket retour.</span>
   </div>
   <button class="solid" id="checkout">Afrekenen</button>
+
+  <div id="checkout-form" hidden>
+    <h4>Bezorggegevens</h4>
+    <label class="field"><span>Naam</span><input type="text" id="c-naam" autocomplete="name"></label>
+    <label class="field"><span>E-mail</span><input type="email" id="c-email" autocomplete="email"></label>
+    <label class="field"><span>Straat en huisnummer</span><input type="text" id="c-straat" autocomplete="street-address"></label>
+    <div class="pair">
+      <label class="field"><span>Postcode</span><input type="text" id="c-postcode" autocomplete="postal-code"></label>
+      <label class="field"><span>Plaats</span><input type="text" id="c-plaats" autocomplete="address-level2"></label>
+    </div>
+    <label class="check"><input type="checkbox" id="c-leeftijd"><span>Ik ben 18 jaar of ouder en weet dat de bezorger mijn ID controleert.</span></label>
+    <button class="solid" id="pay">Naar betalen</button>
+    <div class="msg" id="pay-msg"></div>
+  </div>
 </aside>
 
 <div class="toast" id="toast"></div>
@@ -548,7 +568,7 @@ footer button:hover{color:var(--copper)}
   <div class="shell">
     <div class="f-grid">
       <div>
-        <div class="wordmark" style="font-size:1rem">Raven <span>&amp;</span> Barrel</div>
+        <div class="wordmark" style="font-size:1rem">Black <span>Oak</span> Spirits</div>
         <p style="margin-top:.9rem;max-width:36ch">Onafhankelijke bottelaar in Nederland. Kleine oplages uit zorgvuldig gekozen vaten.</p>
         <span class="nix">NIX18 · geen alcohol onder 18</span>
       </div>
@@ -572,7 +592,7 @@ footer button:hover{color:var(--copper)}
       </div>
     </div>
     <div class="f-bottom">
-      <span>© 2026 Raven &amp; Barrel · KvK 00000000 · Vergunning drank- en horecawet</span>
+      <span>© 2026 Black Oak Spirits · KvK 88993167 · btw NL004680415B43</span>
       <span>Geniet, maar drink met mate</span>
     </div>
   </div>
@@ -624,7 +644,7 @@ footer button:hover{color:var(--copper)}
       else { b.removeAttribute('aria-current'); }
     });
     document.getElementById('nav').classList.remove('open');
-    document.title='Raven & Barrel — '+TITLES[id];
+    document.title='Black Oak Spirits — '+TITLES[id];
     if(push!==false && location.hash.slice(2)!==id){ location.hash='#/'+id; }
     window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -672,9 +692,9 @@ footer button:hover{color:var(--copper)}
   }
   document.querySelectorAll('.buy').forEach(function(b){
     b.addEventListener('click',function(){
-      var name=b.dataset.name, price=parseFloat(b.dataset.price);
+      var name=b.dataset.name, price=parseFloat(b.dataset.price), id=b.dataset.id;
       var found=cart.filter(function(i){ return i.name===name; })[0];
-      if(found){ found.qty++; } else { cart.push({name:name,price:price,qty:1}); }
+      if(found){ found.qty++; } else { cart.push({id:id,name:name,price:price,qty:1}); }
       render();
       b.textContent='Toegevoegd ✓'; b.classList.add('done');
       setTimeout(function(){ b.textContent='In winkelwagen'; b.classList.remove('done'); },1600);
@@ -688,9 +708,53 @@ footer button:hover{color:var(--copper)}
   document.getElementById('cart-close').addEventListener('click',function(){ openCart(false); });
   scrim.addEventListener('click',function(){ openCart(false); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ openCart(false); } });
+  /* Adres van de kassa-worker. Na het deployen van de worker vervang je dit
+     door je eigen adres, bijvoorbeeld https://black-oak-kassa.jouwnaam.workers.dev */
+  var KASSA_URL='http://127.0.0.1:8787';
+
+  var form=document.getElementById('checkout-form');
   document.getElementById('checkout').addEventListener('click',function(){
     if(!cart.length){ toast('Je winkelwagen is nog leeg.'); return; }
-    toast('In Shopify gaat deze knop naar de kassa met 18+ bevestiging.');
+    form.hidden=false;
+    document.getElementById('c-naam').focus();
+  });
+
+  document.getElementById('pay').addEventListener('click',function(){
+    var knop=this, msg=document.getElementById('pay-msg');
+    var klant={
+      naam:document.getElementById('c-naam').value.trim(),
+      email:document.getElementById('c-email').value.trim(),
+      straat:document.getElementById('c-straat').value.trim(),
+      postcode:document.getElementById('c-postcode').value.trim(),
+      plaats:document.getElementById('c-plaats').value.trim()
+    };
+    msg.classList.add('on'); msg.style.borderColor='var(--wax-lit)';
+    if(!klant.naam||!klant.straat||!klant.postcode||!klant.plaats){ msg.textContent='Vul je bezorggegevens in.'; return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(klant.email)){ msg.textContent='Vul een geldig e-mailadres in.'; return; }
+    if(!document.getElementById('c-leeftijd').checked){ msg.textContent='Bevestig dat je 18 jaar of ouder bent.'; return; }
+
+    msg.style.borderColor='var(--patina)'; msg.textContent='Moment, we maken de betaling aan...';
+    knop.disabled=true; knop.textContent='Even geduld';
+
+    fetch(KASSA_URL+'/api/checkout',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({
+        items:cart.map(function(i){ return {id:i.id,aantal:i.qty}; }),
+        klant:klant,
+        leeftijd:true
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.betaalUrl){ window.location.href=d.betaalUrl; return; }
+      throw new Error(d.fout||'Onbekende fout');
+    })
+    .catch(function(e){
+      msg.style.borderColor='var(--wax-lit)';
+      msg.textContent='Betaling niet gelukt: '+e.message;
+      knop.disabled=false; knop.textContent='Naar betalen';
+    });
   });
 
   /* ---- The Oak Circle ---- */
