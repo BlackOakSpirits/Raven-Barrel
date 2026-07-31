@@ -179,8 +179,10 @@ nav button[aria-current="page"]{color:var(--bone);border-bottom-color:var(--copp
   padding:.85rem .9rem;font:inherit;font-size:.95rem;border-radius:2px;
 }
 .field input:focus{border-color:var(--patina);outline:none}
+.veldkop{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:1.4rem 0 .8rem}
 .check{display:flex;gap:.7rem;align-items:flex-start;font-size:.82rem;color:#93A0A6;margin:1.1rem 0 1.4rem}
-.check input{margin-top:.25rem;accent-color:var(--copper);width:16px;height:16px}
+.check input{margin-top:.25rem;accent-color:var(--copper);width:16px;height:16px;flex-shrink:0}
+.form-card .check{margin:0 0 .8rem}
 .solid{width:100%;background:var(--copper);color:#0B0705;border:0;padding:.95rem;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
 .solid:hover{background:#C0713A}
 .perks{list-style:none;margin:2rem 0 0;padding:0}
@@ -244,8 +246,8 @@ footer button:hover{color:var(--copper)}
 .nix{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--copper);color:var(--copper);padding:.35rem .7rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-top:1rem}
 .f-bottom{border-top:1px solid var(--line);padding-top:1.4rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.75rem}
 
-.toast{position:fixed;left:50%;bottom:2rem;transform:translate(-50%,120%);background:var(--paper);color:#1A1410;padding:.9rem 1.3rem;font-size:.85rem;z-index:70;transition:transform .35s ease;box-shadow:0 20px 40px -20px #000}
-.toast.on{transform:translate(-50%,0)}
+.toast{position:fixed;left:50%;bottom:2rem;visibility:hidden;transform:translate(-50%,260%);background:var(--paper);color:#1A1410;padding:.9rem 1.3rem;font-size:.85rem;z-index:70;transition:transform .35s ease;box-shadow:0 20px 40px -20px #000}
+.toast.on{visibility:visible;transform:translate(-50%,0)}
 
 @media(max-width:900px){
   .hero-grid,.story,.circle{grid-template-columns:1fr;gap:2.2rem}
@@ -267,6 +269,120 @@ footer button:hover{color:var(--copper)}
   *{animation:none!important;transition-duration:.01ms!important}
   html{scroll-behavior:auto}
 }
+
+/* ============ DE EIK ALS NAVIGATIE ============ */
+#hub{position:relative;display:block;padding:0}
+#hub.hidden{display:none}
+#tree{width:100%;height:100%;display:block}
+#hub{background:radial-gradient(78% 74% at 50% 30%,#1B2A31 0%,#101A1F 55%,#080C0E 100%);
+  height:calc(100vh - 92px);display:flex;align-items:center;overflow:hidden}
+body.hubmode{overflow:hidden}
+.bark{fill:none;stroke:#05090B;stroke-linecap:round}
+.twig{fill:none;stroke:#080D10;stroke-linecap:round}
+.leafcluster use{fill:#8E5228;opacity:.9}
+.leafcluster use.lit{fill:#B87039}
+
+.nav-node{cursor:pointer}
+/* donkere rand om de letters, zodat ze leesbaar blijven waar takjes erachter lopen */
+.nav-node text,.leaf-nav text{paint-order:stroke;stroke:#0D1519;stroke-width:5px;stroke-linejoin:round}
+.nav-node .hit{fill:transparent}
+.nav-node .dot{fill:#A9622F;transition:r .25s ease}
+.nav-node .brand{font-family:var(--display);font-size:30px;fill:var(--bone);letter-spacing:2px;text-anchor:middle}
+.nav-node .sub{font-family:var(--body);font-size:13px;fill:var(--muted);letter-spacing:4.4px;text-anchor:middle;text-transform:uppercase}
+.nav-node:hover .dot,.nav-node:focus .dot{r:13}
+.nav-node:hover .brand,.nav-node:focus .brand{fill:var(--copper)}
+.nav-node:focus{outline:none}
+.nav-node:focus .hit{stroke:var(--patina);stroke-width:1.5;stroke-dasharray:4 4}
+.nav-node.bud .brand{font-size:22px;fill:#6C7A81}
+.nav-node.bud .dot{fill:#4A5A62}
+.nav-node.bud .sub{fill:#4A5A62}
+.nav-node.bud:hover .brand{fill:#9AA7AD}
+.nav-node.bud{cursor:default}
+
+.leaf-nav{cursor:pointer}
+.leaf-nav .lbl{font-family:var(--display);font-size:24px;fill:var(--bone);letter-spacing:1.5px}
+.leaf-nav .sub2{font-family:var(--body);font-size:8.5px;fill:var(--muted);letter-spacing:3px;text-transform:uppercase}
+.leaf-nav:hover .lbl{fill:var(--copper)}
+.leaf-nav use{fill:#A9622F}
+.leaf-nav:hover use{fill:#C0713A}
+.faller{fill:#6E4520;opacity:.5;pointer-events:none}
+.wettekst{font-family:var(--body);font-size:12.5px;fill:#55636A;letter-spacing:2.6px;text-anchor:middle}
+
+@keyframes dwarrel{
+  0%{transform:translate(-90px,-560px) rotate(-50deg);opacity:0}
+  8%{opacity:1}
+  35%{transform:translate(40px,-330px) rotate(30deg)}
+  65%{transform:translate(-30px,-140px) rotate(-20deg)}
+  100%{transform:translate(0,0) rotate(0)}
+}
+@keyframes wieg{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  50%{transform:translate(2px,-3px) rotate(4deg)}
+}
+@keyframes valt{
+  0%{transform:translate(0,0) rotate(0);opacity:0}
+  10%{opacity:.5}
+  50%{transform:translate(60px,300px) rotate(180deg)}
+  90%{opacity:.35}
+  100%{transform:translate(-20px,620px) rotate(340deg);opacity:0}
+}
+.leaf-inner{animation:dwarrel 5.5s cubic-bezier(.35,.1,.5,1) both, wieg 5s 5.6s ease-in-out infinite}
+.faller{animation:valt 15s linear infinite}
+
+.hub-foot{display:none;text-align:center;padding:1.2rem 0 2rem}
+.hub-foot p{font-size:.78rem;color:#5E6D74;letter-spacing:.06em;margin:0}
+.hub-legal{margin-top:.7rem!important;font-size:.72rem!important;color:#4E5C63!important}
+
+/* tekstuele navigatie — mobiel, en als vangnet voor wie de boom niet ziet */
+.hub-list{display:none;padding:0 0 3rem}
+.hub-list h2{font-size:1.5rem;margin-bottom:1.2rem}
+.hub-list ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.hub-list li{border-bottom:1px solid var(--line)}
+.hub-list button{width:100%;background:none;border:0;text-align:left;padding:1rem 0;display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+.hub-list .nm{font-family:var(--display);font-size:1.15rem}
+.hub-list .tg{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.hub-list button:disabled{opacity:.45;cursor:default}
+
+/* ============ PAGINA-LAAG ============ */
+#page{display:none}
+#page.on{display:block}
+.backbar{border-bottom:1px solid var(--line);background:var(--cellar)}
+.backbar .shell{display:flex;align-items:center;gap:.9rem;padding:.7rem 0}
+.backbar button{background:none;border:1px solid var(--line);color:var(--muted);padding:.45rem .9rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.backbar button:hover{border-color:var(--copper);color:var(--bone)}
+.backbar .crumb{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.backbar .crumb b{color:var(--bone);font-weight:600}
+
+header .tree-btn{background:none;border:1px solid var(--line);color:var(--muted);padding:.5rem .9rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
+
+@media(max-width:760px){
+  #hub{height:auto;display:block;overflow:visible}
+  #tree{height:auto}
+  body.hubmode{overflow:auto}
+  .hub-foot{display:block}
+  #tree .lbl{display:none}
+  .hub-hint{display:none}
+  #tree{max-height:46vh}
+  .hub-list{display:block}
+}
+@media(prefers-reduced-motion:reduce){
+  .leaf-inner,.faller{animation:none!important}
+  .faller{display:none}
+}
+
+
+/* ---- verhaal per merk ---- */
+.brandstory{border-top:1px solid var(--line);padding:2.8rem 0;display:grid;grid-template-columns:.75fr 1.25fr;gap:2.8rem;align-items:start}
+.bs-head h3{font-size:2rem;line-height:1.05;margin-bottom:.5rem}
+.bs-head .tagline{font-size:.85rem;color:var(--muted);letter-spacing:.02em}
+.bs-tag{display:inline-block;margin-top:1rem;border:1px solid var(--line);color:var(--muted);padding:.3rem .7rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+.bs-tag.live{border-color:var(--copper);color:var(--copper)}
+.bs-body p{color:#B6BFC3}
+.brandstory.soon .bs-head h3{color:#6C7A81}
+.brandstory.soon .bs-body p{color:#8B9AA1}
+.brandstory.soon .bs-body{border-left:1px dashed var(--line);padding-left:1.6rem}
+@media(max-width:900px){.brandstory{grid-template-columns:1fr;gap:1.4rem;padding:2rem 0}}
 </style>
 </head>
 <body class="locked">
@@ -315,6 +431,10 @@ footer button:hover{color:var(--copper)}
       <stop offset="70%" stop-color="#7C2A24"/>
       <stop offset="100%" stop-color="#521A16"/>
     </radialGradient>
+    <g id="leaf">
+      <path d="M0-12C4.5-9 8-5.5 8-2.5 8-.6 6.2.3 4.8 1 6.6 2 8.6 4 8.6 6.2 8.6 8.4 5.8 8.8 3.4 8.6 3.2 10 1.8 11.4 0 12.6-1.8 11.4-3.2 10-3.4 8.6-5.8 8.8-8.6 8.4-8.6 6.2-8.6 4-6.6 2-4.8 1-6.2.3-8-.6-8-2.5-8-5.5-4.5-9 0-12Z"/>
+      <path d="M0-9.5V11" stroke="#0A0F12" stroke-width=".7" opacity=".35" fill="none"/>
+    </g>
     <g id="sealbase">
       <path fill="url(#waxg)" d="M100 6c14 0 20 10 33 13s24-3 34 6 3 22 9 34 17 17 17 31-11 19-14 32 3 24-6 34-22 3-34 9-17 17-31 17-19-11-32-14-24 3-34-6-3-22-9-34-17-17-17-31 11-19 14-32-3-24 6-34 22-3 34-9S86 6 100 6z"/>
       <circle cx="100" cy="100" r="72" fill="none" stroke="#4E1A16" stroke-width="1.5" opacity=".8"/>
@@ -356,19 +476,61 @@ footer button:hover{color:var(--copper)}
 <header>
   <div class="shell bar">
     <div class="wordmark">Black <span>Oak</span> Spirits</div>
-    <button class="menu-toggle" id="menu-toggle" aria-expanded="false">Menu</button>
-    <nav id="nav">
-      <ul>
-        <li><button data-view="winkel" aria-current="page">Winkel</button></li>
-        <li><button data-view="verhaal">Ons verhaal</button></li>
-        <li><button data-view="circle">The Oak Circle</button></li>
-        <li><button data-view="limited">Limited Edition</button></li>
-        <li><button data-view="faq">FAQ</button></li>
-      </ul>
-    </nav>
-    <button class="cart-btn" id="cart-open">Winkelwagen <b id="count">0</b></button>
+    <div style="display:flex;gap:.6rem;align-items:center">
+      <button class="tree-btn" id="to-hub">De boom</button>
+      <button class="cart-btn" id="cart-open">Winkelwagen <b id="count">0</b></button>
+    </div>
   </div>
 </header>
+
+
+<section id="hub">
+  <svg id="tree" viewBox="0 0 1500 860" role="img" aria-label="Eik waarvan elke tak een merk van Black Oak Spirits voorstelt">
+    <defs>
+      <radialGradient id="lucht" cx="50%" cy="34%" r="72%">
+        <stop offset="0%" stop-color="#1B2A31"/>
+        <stop offset="55%" stop-color="#101A1F"/>
+        <stop offset="100%" stop-color="#080C0E"/>
+      </radialGradient>
+      <linearGradient id="grond" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0C1216" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#05090B"/>
+      </linearGradient>
+    </defs>
+    
+    <rect y="560" width="1500" height="300" fill="url(#grond)"/>
+    <g id="dwarrelaars"></g>
+    <g id="takken"></g>
+    <g id="navpunten"></g>
+  </svg>
+
+  <div class="hub-foot">
+    <p class="hub-legal">Black Oak Spirits · KvK 88993167 · btw NL004680415B43 · geen verkoop onder 18 jaar</p>
+  </div>
+
+  <div class="shell hub-list">
+    <h2>Waar wil je heen?</h2>
+    <ul>
+      <li><button data-view="winkel"><span class="nm">Raven &amp; Barrel</span><span class="tg">Whisky</span></button></li>
+      <li><button disabled><span class="nm">Tweede tak</span><span class="tg">Binnenkort</span></button></li>
+      <li><button disabled><span class="nm">Derde tak</span><span class="tg">Binnenkort</span></button></li>
+      <li><button disabled><span class="nm">Vierde tak</span><span class="tg">Binnenkort</span></button></li>
+      <li><button disabled><span class="nm">Vijfde tak</span><span class="tg">Binnenkort</span></button></li>
+      <li><button data-view="limited"><span class="nm">Limited Edition</span><span class="tg">Losse vaten</span></button></li>
+      <li><button data-view="circle"><span class="nm">The Oak Circle</span><span class="tg">Eerst horen</span></button></li>
+      <li><button data-view="verhaal"><span class="nm">Ons verhaal</span><span class="tg">De stam</span></button></li>
+      <li><button data-view="faq"><span class="nm">De wortels</span><span class="tg">Veelgestelde vragen</span></button></li>
+    </ul>
+  </div>
+</section>
+
+<div id="page">
+  <div class="backbar">
+    <div class="shell">
+      <button data-goto="hub">&larr; De boom</button>
+      <span class="crumb">Black Oak Spirits · <b id="crumb">Winkel</b></span>
+    </div>
+  </div>
 
 <main class="shell">
 
@@ -418,27 +580,75 @@ footer button:hover{color:var(--copper)}
   <section class="view" id="verhaal">
     <div class="head">
       <p class="eyebrow">Ons verhaal</p>
-      <h2>Wij stoken niet. Wij kiezen.</h2>
+      <h2>Eén stam, meerdere takken.</h2>
+      <p class="lede">Black Oak Spirits is geen merk maar een stam. Elk merk dat eruit groeit krijgt zijn eigen drank, zijn eigen naam en zijn eigen verhaal — maar dezelfde manier van werken: wij stoken niet, wij kiezen.</p>
     </div>
 
-    <div class="story">
-      <div>
-        <p class="lede">Black Oak Spirits begon met een simpele vraag: waarom moet je vijftien jaar wachten om een goede whisky op de markt te brengen, als er in Schotland en Ierland duizenden vaten liggen die al klaar zijn?</p>
+    <article class="brandstory">
+      <div class="bs-head">
+        <h3>Raven &amp; Barrel</h3>
+        <p class="tagline">Whisky uit losse vaten, gebotteld in Nederland</p>
+        <span class="bs-tag live">Eerste tak · leverbaar</span>
+      </div>
+      <div class="bs-body">
+        <p>Raven &amp; Barrel begon met een simpele vraag: waarom moet je vijftien jaar wachten om een goede whisky op de markt te brengen, als er in Schotland en Ierland duizenden vaten liggen die al klaar zijn?</p>
         <p>Distilleerderijen verkopen die vaten. Niet omdat er iets mis mee is, maar omdat ze meer produceren dan ze onder eigen naam kwijt kunnen. Wij proeven, kiezen, kopen het hele vat en laten het in Nederland bottelen. Zonder karamelkleuring, zonder koudefiltering, zonder een verhaal dat we niet kunnen waarmaken.</p>
         <p class="pull">Eén vat, één batch, één keer. Wat op is, is op.</p>
         <p>Dat betekent dat onze flessen niet altijd hetzelfde smaken. Een tweede batch van dezelfde botteling komt uit een ander vat, en dat proef je. Wij zien dat niet als probleem maar als het hele punt: je drinkt een specifiek vat uit een specifiek jaar, geen gestandaardiseerd product.</p>
-        <p>Raven &amp; Barrel is onze eerste productlijn: de bottelingen waar we zelf het vat voor kiezen. De raaf op het zegel staat voor het zoeken. Raven onthouden waar ze iets goeds hebben gevonden en gaan terug. Wij doen hetzelfde met vaten.</p>
-      </div>
+        <p>De raaf op het zegel staat voor het zoeken. Raven onthouden waar ze iets goeds hebben gevonden en gaan terug. Wij doen hetzelfde met vaten.</p>
 
-      <div>
-        <ol class="steps">
+        <ol class="steps" style="margin-top:2rem">
           <li><span class="n">01</span><div><h3>Proeven en selecteren</h3><p>We krijgen monsters uit vaten die te koop staan. Van de twintig die we per ronde proeven, kopen we er meestal één.</p></div></li>
           <li><span class="n">02</span><div><h3>Het vat kopen</h3><p>We kopen het hele vat, inclusief de rest die erin zit. Daarna weten we pas hoeveel flessen het worden — een vat verliest per jaar vocht.</p></div></li>
           <li><span class="n">03</span><div><h3>Bottelen in Nederland</h3><p>Bottelen, etiketteren en accijns afdragen gebeurt bij een bottelaar in Nederland. Wij staan erbij als de eerste fles van de lijn komt.</p></div></li>
           <li><span class="n">04</span><div><h3>Bezorgen met ID-controle</h3><p>Vanuit ons fulfilmentcentrum, met leeftijdscontrole aan de deur. Binnen Nederland meestal binnen twee werkdagen.</p></div></li>
         </ol>
       </div>
-    </div>
+    </article>
+
+    <article class="brandstory soon">
+      <div class="bs-head">
+        <h3>Tweede tak</h3>
+        <p class="tagline">Nog naamloos</p>
+        <span class="bs-tag">Binnenkort</span>
+      </div>
+      <div class="bs-body">
+        <p>Deze tak staat nog in de knop. Zodra we weten welke drank het wordt, komt het verhaal hier te staan — niet eerder, want een merk verzinnen is makkelijk en een merk maken niet.</p>
+      </div>
+    </article>
+
+    <article class="brandstory soon">
+      <div class="bs-head">
+        <h3>Derde tak</h3>
+        <p class="tagline">Nog naamloos</p>
+        <span class="bs-tag">Binnenkort</span>
+      </div>
+      <div class="bs-body">
+        <p>Ook hier geldt: we beginnen pas als er iets in het glas zit dat we zelf zouden kopen. Tot die tijd blijft deze plek leeg.</p>
+      </div>
+    </article>
+
+    <article class="brandstory soon">
+      <div class="bs-head">
+        <h3>Vierde tak</h3>
+        <p class="tagline">Nog naamloos</p>
+        <span class="bs-tag">Binnenkort</span>
+      </div>
+      <div class="bs-body">
+        <p>Een boom groeit niet aan alle kanten tegelijk. Deze tak komt aan de beurt als de eerste twee op eigen benen staan.</p>
+      </div>
+    </article>
+
+    <article class="brandstory soon">
+      <div class="bs-head">
+        <h3>Vijfde tak</h3>
+        <p class="tagline">Nog naamloos</p>
+        <span class="bs-tag">Binnenkort</span>
+      </div>
+      <div class="bs-body">
+        <p>De verste tak, en daarmee de laatste. Wat hier komt weten we zelf nog niet; dat is precies de bedoeling.</p>
+      </div>
+    </article>
   </section>
 
   <!-- ============ THE OAK CIRCLE ============ -->
@@ -463,7 +673,10 @@ footer button:hover{color:var(--copper)}
         <h3 style="margin-bottom:1.2rem">Sluit je aan</h3>
         <label class="field"><span>Voornaam</span><input type="text" id="fname" placeholder="Hoe mogen we je aanspreken?"></label>
         <label class="field"><span>E-mailadres</span><input type="email" id="femail" placeholder="jij@voorbeeld.nl" required></label>
-        <label class="check"><input type="checkbox" id="fage"><span>Ik ben 18 jaar of ouder en wil mails over nieuwe bottelingen, limited editions en promoties ontvangen.</span></label>
+        <p class="veldkop">Waar wil je bericht over krijgen?</p>
+        <label class="check"><input type="checkbox" id="f-circle" checked><span><strong>The Oak Circle</strong> — nieuwe bottelingen, proefnotities en promoties</span></label>
+        <label class="check"><input type="checkbox" id="f-limited"><span><strong>Limited Edition</strong> — alleen bericht bij een eenmalige release</span></label>
+        <label class="check" style="border-top:1px solid var(--line);padding-top:1rem"><input type="checkbox" id="fage"><span>Ik ben 18 jaar of ouder en wil deze mails ontvangen. Uitschrijven kan altijd.</span></label>
         <button class="solid" id="join">Aanmelden</button>
         <div class="msg" id="joinmsg"></div>
       </div>
@@ -482,7 +695,7 @@ footer button:hover{color:var(--copper)}
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="1.2" style="margin:0 auto 1.2rem"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4"/></svg>
       <h3>Volgende release: najaar 2026</h3>
       <p>Er staat op dit moment geen limited edition open. Meld je aan voor The Oak Circle en je hoort het 24 uur voordat de fles hier verschijnt.</p>
-      <button class="solid" style="width:auto;padding:.9rem 2rem;margin-top:1.5rem" data-goto="circle">Zet me op de lijst</button>
+      <button class="solid" id="naar-lijst" style="width:auto;padding:.9rem 2rem;margin-top:1.5rem" data-goto="circle">Zet me op de lijst</button>
     </div>
 
     <div class="drops">
@@ -529,6 +742,41 @@ footer button:hover{color:var(--copper)}
     </div>
   </section>
 </main>
+<footer>
+  <div class="shell">
+    <div class="f-grid">
+      <div>
+        <div class="wordmark" style="font-size:1rem">Black <span>Oak</span> Spirits</div>
+        <p style="margin-top:.9rem;max-width:36ch">Onafhankelijke bottelaar in Nederland. Kleine oplages uit zorgvuldig gekozen vaten.</p>
+        <span class="nix">NIX18 · geen alcohol onder 18</span>
+      </div>
+      <div>
+        <h4>Winkel</h4>
+        <ul>
+          <li><button data-goto="winkel">Assortiment</button></li>
+          <li><button data-goto="limited">Limited Edition</button></li>
+          <li><button data-goto="circle">The Oak Circle</button></li>
+          <li><button data-goto="faq">Veelgestelde vragen</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bezorging &amp; leeftijd</h4>
+        <ul>
+          <li>Levering alleen binnen Nederland</li>
+          <li>ID-controle aan de deur, 18+</li>
+          <li>Geen levering op afhaalpunten</li>
+          <li>Verzending binnen 2 werkdagen</li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Black Oak Spirits · KvK 88993167 · btw NL004680415B43</span>
+      <span>Geniet, maar drink met mate</span>
+    </div>
+  </div>
+</footer>
+</div>
+
 
 <!-- ============ CART ============ -->
 <div class="scrim" id="scrim"></div>
@@ -564,39 +812,7 @@ footer button:hover{color:var(--copper)}
 <div class="toast" id="toast"></div>
 
 <!-- ============ FOOTER ============ -->
-<footer>
-  <div class="shell">
-    <div class="f-grid">
-      <div>
-        <div class="wordmark" style="font-size:1rem">Black <span>Oak</span> Spirits</div>
-        <p style="margin-top:.9rem;max-width:36ch">Onafhankelijke bottelaar in Nederland. Kleine oplages uit zorgvuldig gekozen vaten.</p>
-        <span class="nix">NIX18 · geen alcohol onder 18</span>
-      </div>
-      <div>
-        <h4>Winkel</h4>
-        <ul>
-          <li><button data-goto="winkel">Assortiment</button></li>
-          <li><button data-goto="limited">Limited Edition</button></li>
-          <li><button data-goto="circle">The Oak Circle</button></li>
-          <li><button data-goto="faq">Veelgestelde vragen</button></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Bezorging &amp; leeftijd</h4>
-        <ul>
-          <li>Levering alleen binnen Nederland</li>
-          <li>ID-controle aan de deur, 18+</li>
-          <li>Geen levering op afhaalpunten</li>
-          <li>Verzending binnen 2 werkdagen</li>
-        </ul>
-      </div>
-    </div>
-    <div class="f-bottom">
-      <span>© 2026 Black Oak Spirits · KvK 88993167 · btw NL004680415B43</span>
-      <span>Geniet, maar drink met mate</span>
-    </div>
-  </div>
-</footer>
+
 
 <script>
 (function(){
@@ -608,6 +824,8 @@ footer button:hover{color:var(--copper)}
   var under=document.getElementById('under');
 
   var AGEKEY='rb_age_ok';
+  // Met ?reset achter het adres komt de leeftijdspoort weer terug — handig tijdens het testen.
+  if(location.search.indexOf('reset')>-1){ try{ localStorage.removeItem(AGEKEY); }catch(e){} }
   try{
     var saved=localStorage.getItem(AGEKEY);
     if(saved && Date.now()<parseInt(saved,10)){
@@ -631,38 +849,160 @@ footer button:hover{color:var(--copper)}
     document.getElementById('decline').classList.add('on');
   });
 
-  /* ---- navigatie tussen pagina's ---- */
-  var navBtns=document.querySelectorAll('nav button[data-view]');
+  /* ---- de eik tekenen ---- */
+  var TAKKEN=[
+    {p:[[750,470],[600,410],[420,340],[265,265]], w:[36,11], id:'winkel', naam:'Raven &amp; Barrel', sub:'Whisky',     bloeit:true},
+    {p:[[750,450],[655,315],[570,190],[500,110]], w:[30,9],  naam:'Tweede tak', sub:'Binnenkort'},
+    {p:[[750,430],[746,300],[764,170],[752,70]],  w:[28,9],  naam:'Derde tak',  sub:'Binnenkort'},
+    {p:[[750,450],[845,315],[935,190],[1010,110]],w:[30,9],  naam:'Vierde tak', sub:'Binnenkort'},
+    {p:[[750,470],[900,410],[1085,340],[1240,265]],w:[36,11],naam:'Vijfde tak', sub:'Binnenkort'}
+  ];
+  var STAM=[[750,745],[746,650],[758,560],[750,425]];
+  var WORTELS=[
+    [[750,735],[685,748],[615,755],[530,764]],
+    [[750,735],[820,750],[895,757],[980,766]],
+    [[750,738],[700,762],[645,770],[580,778]],
+    [[750,738],[805,764],[865,772],[925,780]],
+    [[752,740],[752,760],[748,772],[750,788]]
+  ];
+
+  function bez(c,t){
+    var u=1-t, a=u*u*u, b=3*u*u*t, d=3*u*t*t, e=t*t*t;
+    return [a*c[0][0]+b*c[1][0]+d*c[2][0]+e*c[3][0],
+            a*c[0][1]+b*c[1][1]+d*c[2][1]+e*c[3][1]];
+  }
+  /* Een tak is geen lijn van gelijke dikte: hij loopt taps toe.
+     Daarom tekenen we hem als losse stukjes die steeds dunner worden. */
+  function tak(c,w0,w1,klasse,n){
+    n=n||16; var uit='';
+    for(var i=0;i<n;i++){
+      var a=bez(c,i/n), b=bez(c,(i+1)/n), w=w0+(w1-w0)*((i+1)/n);
+      uit+='<path class="'+klasse+'" d="M'+a[0].toFixed(1)+' '+a[1].toFixed(1)+'L'+b[0].toFixed(1)+' '+b[1].toFixed(1)+'" stroke-width="'+w.toFixed(1)+'"/>';
+    }
+    return uit;
+  }
+  /* Vaste "toevals"generator: de boom ziet er elke keer hetzelfde uit. */
+  var zaad=20260730;
+  function rnd(){ zaad=(zaad*1103515245+12345)&0x7fffffff; return zaad/0x7fffffff; }
+
+  /* Zijtak die zelf ook weer vertakt — daar komt de knoestige eikvorm vandaan. */
+  function zijtak(basis,t0,dikte,lengte,diepte){
+    var punt=bez(basis,t0), volgend=bez(basis,Math.min(t0+0.06,1));
+    var hoek=Math.atan2(volgend[1]-punt[1],volgend[0]-punt[0]);
+    var uit='', takken=(diepte===0?2:1);
+    for(var k=0;k<takken;k++){
+      var kant=(rnd()>0.5?1:-1)*(0.45+rnd()*0.55);
+      var len=lengte*(0.7+rnd()*0.5);
+      var m1=[punt[0]+Math.cos(hoek+kant*0.35)*len*0.45, punt[1]+Math.sin(hoek+kant*0.35)*len*0.45];
+      var m2=[punt[0]+Math.cos(hoek+kant*0.8)*len*0.78,  punt[1]+Math.sin(hoek+kant*0.8)*len*0.78];
+      var e =[punt[0]+Math.cos(hoek+kant)*len,           punt[1]+Math.sin(hoek+kant)*len];
+      var c=[punt,m1,m2,e];
+      uit+=tak(c,dikte,dikte*0.3,'twig',10);
+      if(diepte<2) uit+=zijtak(c,0.55+rnd()*0.25,dikte*0.5,len*0.6,diepte+1);
+    }
+    return uit;
+  }
+
+  var hout='';
+  hout+=tak(STAM,84,30,'bark',22);
+  WORTELS.forEach(function(w){ hout+=tak(w,20,2.5,'bark',12); });
+
+  TAKKEN.forEach(function(t){
+    hout+=tak(t.p,t.w[0],t.w[1],'bark');
+    for(var k=0;k<4;k++){
+      hout+=zijtak(t.p,0.34+k*0.17,t.w[1]*0.85,120,0);
+    }
+  });
+  document.getElementById('takken').innerHTML=hout;
+
+  /* blad aan de tak die al draagt */
+  var blad='<g class="leafcluster">';
+  for(var i=0;i<64;i++){
+    var t=TAKKEN[0], tt=0.35+rnd()*0.65, punt=bez(t.p,tt);
+    var x=punt[0]+(rnd()-0.5)*280, y=punt[1]+(rnd()-0.5)*210;
+    var sc=(0.9+rnd()*0.9).toFixed(2), rt=(rnd()*360).toFixed(0);
+    blad+='<use href="#leaf" class="'+(rnd()>0.62?'lit':'')+'" transform="translate('+x.toFixed(0)+','+y.toFixed(0)+') rotate('+rt+') scale('+sc+')"></use>';
+  }
+  blad+='</g>';
+
+  /* takken die nog moeten uitlopen krijgen een knop, geen blad */
+  var punten=blad;
+  TAKKEN.forEach(function(t,i){
+    var tip=t.p[3];
+    var ly=tip[1]-(i===0?66:44);
+    punten+='<g class="nav-node lbl'+(t.id?'':' bud')+'"'+(t.id?' data-view="'+t.id+'" tabindex="0" role="link"':'')+'>'
+      +'<rect class="hit" x="'+(tip[0]-165)+'" y="'+(ly-34)+'" width="330" height="'+(tip[1]-ly+48)+'" rx="8"></rect>'
+      +'<circle class="dot" cx="'+tip[0]+'" cy="'+tip[1]+'" r="'+(t.id?9:6.5)+'"></circle>'
+      +'<text class="brand" x="'+tip[0]+'" y="'+ly+'">'+t.naam+'</text>'
+      +'<text class="sub" x="'+tip[0]+'" y="'+(ly+22)+'">'+t.sub+'</text>'
+      +'</g>';
+  });
+
+  /* twee bladeren dwarrelen naar beneden en blijven liggen */
+  var BLADEREN=[
+    {x:395,y:648,id:'limited',naam:'Limited Edition',sub:'Losse vaten',anker:'end',dx:-30},
+    {x:1115,y:664,id:'circle', naam:'The Oak Circle', sub:'Eerst horen',anker:'start',dx:30}
+  ];
+  BLADEREN.forEach(function(b,i){
+    punten+='<g class="leaf-nav" data-view="'+b.id+'" tabindex="0" role="link" transform="translate('+b.x+','+b.y+')">'
+      +'<g class="leaf-inner" style="animation-delay:'+(i*1.4)+'s,'+(5.6+i*1.4)+'s">'
+      +'<rect class="hit" x="'+(b.anker==='end'?-260:-22)+'" y="-30" width="282" height="60" fill="transparent"></rect>'
+      +'<use href="#leaf" transform="rotate('+(i?18:-14)+') scale(2.4)"></use>'
+      +'<text class="lbl" x="'+b.dx+'" y="-4" text-anchor="'+b.anker+'">'+b.naam+'</text>'
+      +'<text class="sub2" x="'+b.dx+'" y="14" text-anchor="'+b.anker+'">'+b.sub+'</text>'
+      +'</g></g>';
+  });
+
+  /* stam = ons verhaal, wortels = veelgestelde vragen */
+  punten+='<g class="nav-node lbl" data-view="verhaal" tabindex="0" role="link">'
+    +'<rect class="hit" x="620" y="556" width="260" height="72" rx="8"></rect>'
+    +'<text class="brand" x="750" y="594" style="font-size:24px">Ons verhaal</text>'
+    +'<text class="sub" x="750" y="614">De stam</text></g>';
+  punten+='<g class="nav-node lbl" data-view="faq" tabindex="0" role="link">'
+    +'<rect class="hit" x="600" y="756" width="300" height="56" rx="8"></rect>'
+    +'<text class="brand" x="750" y="782" style="font-size:21px">De wortels</text>'
+    +'<text class="sub" x="750" y="800">Veelgestelde vragen</text></g>';
+
+  /* losse blaadjes op de achtergrond, puur sfeer */
+  for(var f=0;f<7;f++){
+    punten+='<use href="#leaf" class="faller" transform="translate('+(140+f*190)+','+(110+f*36)+') scale(1.2)" style="animation-delay:'+(f*2.4)+'s"></use>';
+  }
+  punten+='<text class="wettekst" x="750" y="836">BLACK OAK SPIRITS · KVK 88993167 · BTW NL004680415B43 · GEEN VERKOOP ONDER 18 JAAR</text>';
+  document.getElementById('navpunten').innerHTML=punten;
+
+  /* ---- navigatie ---- */
   var PAGES=['winkel','verhaal','circle','limited','faq'];
-  var TITLES={winkel:'Winkel',verhaal:'Ons verhaal',circle:'The Oak Circle',limited:'Limited Edition',faq:'Veelgestelde vragen'};
+  var TITLES={winkel:'Raven & Barrel',verhaal:'Ons verhaal',circle:'The Oak Circle',limited:'Limited Edition',faq:'Veelgestelde vragen'};
+  var hub=document.getElementById('hub'), pagina=document.getElementById('page');
 
   function show(id,push){
-    if(PAGES.indexOf(id)<0){ id='winkel'; }
-    document.querySelectorAll('.view').forEach(function(v){ v.classList.toggle('on',v.id===id); });
-    navBtns.forEach(function(b){
-      if(b.dataset.view===id){ b.setAttribute('aria-current','page'); }
-      else { b.removeAttribute('aria-current'); }
-    });
-    document.getElementById('nav').classList.remove('open');
-    document.title='Black Oak Spirits — '+TITLES[id];
-    if(push!==false && location.hash.slice(2)!==id){ location.hash='#/'+id; }
+    if(id==='hub'||PAGES.indexOf(id)<0){
+      hub.classList.remove('hidden'); pagina.classList.remove('on');
+      document.body.classList.add('hubmode');
+      document.title='Black Oak Spirits — Whisky, gebotteld in Nederland';
+      if(push!==false && location.hash!=='#/') location.hash='#/';
+    } else {
+      document.querySelectorAll('.view').forEach(function(v){ v.classList.toggle('on',v.id===id); });
+      hub.classList.add('hidden'); pagina.classList.add('on');
+      document.body.classList.remove('hubmode');
+      document.getElementById('crumb').textContent=TITLES[id];
+      document.title='Black Oak Spirits — '+TITLES[id];
+      if(push!==false && location.hash.slice(2)!==id) location.hash='#/'+id;
+    }
     window.scrollTo({top:0,behavior:'smooth'});
   }
-  function route(){ show(location.hash.replace(/^#\/?/,'')||'winkel',false); }
+  function route(){ show(location.hash.replace(/^#\/?/,'')||'hub',false); }
 
-  navBtns.forEach(function(b){ b.addEventListener('click',function(){ show(b.dataset.view); }); });
-  document.querySelectorAll('[data-goto]').forEach(function(b){
-    b.addEventListener('click',function(){ show(b.dataset.goto); });
-  });
+  function koppel(el){
+    el.addEventListener('click',function(){ show(el.dataset.view||el.dataset.goto); });
+    el.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(el.dataset.view||el.dataset.goto); }
+    });
+  }
+  document.querySelectorAll('[data-view],[data-goto]').forEach(koppel);
+  document.getElementById('to-hub').addEventListener('click',function(){ show('hub'); });
   window.addEventListener('hashchange',route);
   route();
-
-  var mt=document.getElementById('menu-toggle');
-  mt.addEventListener('click',function(){
-    var n=document.getElementById('nav');
-    n.classList.toggle('open');
-    mt.setAttribute('aria-expanded',n.classList.contains('open'));
-  });
 
   /* ---- FAQ ---- */
   document.querySelectorAll('.q button').forEach(function(b){
@@ -758,24 +1098,44 @@ footer button:hover{color:var(--copper)}
   });
 
   /* ---- The Oak Circle ---- */
+  document.getElementById('naar-lijst').addEventListener('click',function(){
+    document.getElementById('f-limited').checked=true;
+  });
+
   document.getElementById('join').addEventListener('click',function(){
+    var knop=this, msg=document.getElementById('joinmsg');
     var email=document.getElementById('femail').value.trim();
-    var age=document.getElementById('fage').checked;
-    var name=document.getElementById('fname').value.trim();
-    var msg=document.getElementById('joinmsg');
-    msg.classList.add('on');
+    var naam=document.getElementById('fname').value.trim();
+    var circle=document.getElementById('f-circle').checked;
+    var limited=document.getElementById('f-limited').checked;
+
+    msg.classList.add('on'); msg.style.borderColor='var(--wax-lit)';
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-      msg.textContent='Vul een e-mailadres in met een @ en een punt, bijvoorbeeld jij@voorbeeld.nl.';
-      msg.style.borderColor='var(--wax-lit)'; return;
+      msg.textContent='Vul een e-mailadres in met een @ en een punt, bijvoorbeeld jij@voorbeeld.nl.'; return;
     }
-    if(!age){
-      msg.textContent='Zet het vinkje bij 18 jaar of ouder om je aan te melden.';
-      msg.style.borderColor='var(--wax-lit)'; return;
-    }
-    msg.style.borderColor='var(--patina)';
-    msg.textContent=(name?name+', je':'Je')+' staat op de lijst. Je hoort van ons zodra het volgende vat klaar is.';
-    document.getElementById('femail').value=''; document.getElementById('fname').value='';
-    document.getElementById('fage').checked=false;
+    if(!circle && !limited){ msg.textContent='Kies waar je bericht over wilt krijgen.'; return; }
+    if(!document.getElementById('fage').checked){ msg.textContent='Zet het vinkje bij 18 jaar of ouder om je aan te melden.'; return; }
+
+    msg.style.borderColor='var(--patina)'; msg.textContent='Moment...';
+    knop.disabled=true;
+
+    fetch(KASSA_URL+'/api/inschrijven',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({email:email,naam:naam,circle:circle,limited:limited,leeftijd:true})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.fout) throw new Error(d.fout);
+      msg.textContent=(naam?naam+', je':'Je')+' staat op de lijst'+(d.nieuw?'':' — je voorkeuren zijn bijgewerkt')+'.';
+      document.getElementById('femail').value=''; document.getElementById('fname').value='';
+      document.getElementById('fage').checked=false;
+    })
+    .catch(function(e){
+      msg.style.borderColor='var(--wax-lit)';
+      msg.textContent='Aanmelden lukte niet: '+e.message;
+    })
+    .then(function(){ knop.disabled=false; });
   });
 })();
 </script>
