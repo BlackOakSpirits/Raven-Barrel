@@ -383,6 +383,23 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
 .brandstory.soon .bs-body p{color:#8B9AA1}
 .brandstory.soon .bs-body{border-left:1px dashed var(--line);padding-left:1.6rem}
 @media(max-width:900px){.brandstory{grid-template-columns:1fr;gap:1.4rem;padding:2rem 0}}
+
+/* ---- bedankt ---- */
+.dank{max-width:640px;margin:0 auto;text-align:center;padding:2rem 0 1rem}
+.dank .zegel{width:150px;height:150px;margin:0 auto 2rem;opacity:.92}
+.dank h2{margin-bottom:.7rem}
+.dank .lede{margin:0 auto 1.6rem}
+.ordernr{display:inline-block;border:1px solid var(--line);background:var(--cellar);padding:.7rem 1.4rem;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ordernr b{color:var(--bone);font-weight:600;letter-spacing:.1em}
+.dank-blokken{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2.6rem 0 1rem;text-align:left}
+.dank-blok{border:1px solid var(--line);background:var(--cellar);padding:1.4rem}
+.dank-blok.rood{border-left:2px solid var(--wax)}
+.dank-blok h3{font-size:1.05rem;margin-bottom:.5rem}
+.dank-blok p{font-size:.88rem;color:#A9B4B9;margin:0}
+.dank-blok svg{color:var(--copper);margin-bottom:.8rem}
+.dank-foot{margin-top:2rem;font-size:.85rem;color:var(--muted)}
+@media(max-width:760px){.dank-blokken{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="locked">
@@ -741,6 +758,40 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
         <div class="a"><p>De leeftijd van de jóngste whisky in de fles. Staat er 12 op een fles waarin whisky van 12, 15 en 18 jaar is gemengd, dan mag er alleen 12 op. Zonder jaartal heet het NAS (no age statement); dat hoeft niet slecht te zijn, maar je weet minder. Andere termen die je bij ons tegenkomt: <em>single cask</em> betekent uit één enkel vat, <em>cask strength</em> betekent onverdund gebotteld (vaak 55–60%), en <em>single malt</em> betekent gemoute gerst van één distilleerderij.</p></div></div>
     </div>
   </section>
+
+  <!-- ============ BEDANKT ============ -->
+  <section class="view" id="bedankt">
+    <div class="dank">
+      <svg class="zegel" viewBox="0 0 200 200" aria-hidden="true"><use href="#sealart-bos"></use></svg>
+
+      <p class="eyebrow">Bestelling geplaatst</p>
+      <h2>Het zegel is van jou.</h2>
+      <p class="lede">Je betaling is ontvangen en je bestelling staat genoteerd.</p>
+
+      <p class="ordernr" id="ordernr" hidden>Ordernummer <b></b></p>
+
+      <div class="dank-blokken">
+        <div class="dank-blok">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <h3>De bevestiging is onderweg</h3>
+          <p>Je ontvangt binnen enkele minuten een e-mail met je ordernummer, wat je besteld hebt en het bezorgadres. Niets gezien na een kwartier? Kijk dan even in je spamfolder.</p>
+        </div>
+
+        <div class="dank-blok rood">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="5" width="19" height="14" rx="2"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5 16c.8-1.6 2-2.4 3.5-2.4S11.2 14.4 12 16M15 10h4M15 13.5h4"/></svg>
+          <h3>Leeftijdscontrole bij bezorging</h3>
+          <p>De bezorger vraagt om een geldig paspoort, ID-kaart of rijbewijs. Zorg dat iemand van 18 jaar of ouder thuis is; anders wordt het pakket niet afgegeven en gaat het retour.</p>
+        </div>
+      </div>
+
+      <p class="dank-foot">Vragen over je bestelling? Mail ons met je ordernummer erbij.</p>
+
+      <div style="margin-top:1.6rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+        <button class="ghost" data-goto="winkel">Terug naar de winkel</button>
+        <button class="ghost" data-goto="hub">Naar de boom</button>
+      </div>
+    </div>
+  </section>
 </main>
 <footer>
   <div class="shell">
@@ -971,8 +1022,8 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
   document.getElementById('navpunten').innerHTML=punten;
 
   /* ---- navigatie ---- */
-  var PAGES=['winkel','verhaal','circle','limited','faq'];
-  var TITLES={winkel:'Raven & Barrel',verhaal:'Ons verhaal',circle:'The Oak Circle',limited:'Limited Edition',faq:'Veelgestelde vragen'};
+  var PAGES=['winkel','verhaal','circle','limited','faq','bedankt'];
+  var TITLES={winkel:'Raven & Barrel',verhaal:'Ons verhaal',circle:'The Oak Circle',limited:'Limited Edition',faq:'Veelgestelde vragen',bedankt:'Bedankt'};
   var hub=document.getElementById('hub'), pagina=document.getElementById('page');
 
   function show(id,push){
@@ -992,6 +1043,17 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     window.scrollTo({top:0,behavior:'smooth'});
   }
   function route(){ show(location.hash.replace(/^#\/?/,'')||'hub',false); }
+
+  /* Mollie stuurt de klant terug met ?order=BOS-... in het adres. */
+  (function(){
+    var nr=new URLSearchParams(location.search).get('order');
+    if(nr && /^[A-Z0-9-]{6,24}$/.test(nr)){
+      var el=document.getElementById('ordernr');
+      el.querySelector('b').textContent=nr;
+      el.hidden=false;
+      if(!location.hash) location.hash='#/bedankt';
+    }
+  })();
 
   function koppel(el){
     el.addEventListener('click',function(){ show(el.dataset.view||el.dataset.goto); });
@@ -1048,9 +1110,11 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
   document.getElementById('cart-close').addEventListener('click',function(){ openCart(false); });
   scrim.addEventListener('click',function(){ openCart(false); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ openCart(false); } });
-  /* Adres van de kassa-worker. Na het deployen van de worker vervang je dit
-     door je eigen adres, bijvoorbeeld https://black-oak-kassa.jouwnaam.workers.dev */
-  var KASSA_URL='http://127.0.0.1:8787';
+  /* Adres van je worker. Die verzorgt zowel het inschrijven (/api/inschrijven)
+     als het afrekenen (/api/checkout) — één server, verschillende ingangen.
+     Na het uitrollen vervang je dit door je eigen adres,
+     bijvoorbeeld https://black-oak-kassa.jouwnaam.workers.dev */
+  var WORKER_URL='https://ravenandbarrel.levi-brouwer.workers.dev';
 
   var form=document.getElementById('checkout-form');
   document.getElementById('checkout').addEventListener('click',function(){
@@ -1076,7 +1140,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     msg.style.borderColor='var(--patina)'; msg.textContent='Moment, we maken de betaling aan...';
     knop.disabled=true; knop.textContent='Even geduld';
 
-    fetch(KASSA_URL+'/api/checkout',{
+    fetch(WORKER_URL+'/api/checkout',{
       method:'POST',
       headers:{'content-type':'application/json'},
       body:JSON.stringify({
@@ -1119,7 +1183,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     msg.style.borderColor='var(--patina)'; msg.textContent='Moment...';
     knop.disabled=true;
 
-    fetch(KASSA_URL+'/api/inschrijven',{
+    fetch(WORKER_URL+'/api/inschrijven',{
       method:'POST',
       headers:{'content-type':'application/json'},
       body:JSON.stringify({email:email,naam:naam,circle:circle,limited:limited,leeftijd:true})
