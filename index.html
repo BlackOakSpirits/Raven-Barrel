@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Black Oak Spirits — Whisky, gebotteld in Nederland</title>
 <meta name="description" content="Onafhankelijke bottelaar uit Nederland. Kleine oplages uit zorgvuldig gekozen vaten. Alleen verkoop aan 18 jaar en ouder, met ID-controle bij bezorging.">
 <meta name="theme-color" content="#0C1216">
@@ -31,12 +31,21 @@
   --display:"Bodoni Moda",Georgia,serif;
   --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
   --shell:min(1180px,92vw);
+  /* Ruimte voor de inkeping en de balk onderin op moderne telefoons. */
+  --veilig-l:env(safe-area-inset-left,0px);
+  --veilig-r:env(safe-area-inset-right,0px);
+  --veilig-b:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);
-  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  /* Groeit mee met de schermbreedte in plaats van in sprongen bij elk breekpunt. */
+  font-size:clamp(15px,0.55rem + 0.55vw,17px);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  padding-left:var(--veilig-l);padding-right:var(--veilig-r);
+  -webkit-text-size-adjust:100%;
 }
 body.locked{overflow:hidden}
 img{max-width:100%;display:block}
@@ -49,8 +58,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   color:var(--muted);font-weight:600;
 }
 h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;margin:0}
-h1{font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:-.01em}
-h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+h1{font-size:clamp(2rem,1.2rem + 4vw,4.6rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.6rem,1rem + 2.6vw,2.9rem)}
 h3{font-size:1.3rem}
 p{margin:0 0 1em}
 
@@ -246,24 +255,43 @@ footer button:hover{color:var(--copper)}
 .nix{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--copper);color:var(--copper);padding:.35rem .7rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-top:1rem}
 .f-bottom{border-top:1px solid var(--line);padding-top:1.4rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.75rem}
 
-.toast{position:fixed;left:50%;bottom:2rem;visibility:hidden;transform:translate(-50%,260%);background:var(--paper);color:#1A1410;padding:.9rem 1.3rem;font-size:.85rem;z-index:70;transition:transform .35s ease;box-shadow:0 20px 40px -20px #000}
+.toast{position:fixed;left:50%;bottom:2rem;visibility:hidden;transform:translate(-50%,260%);max-width:calc(100vw - 2rem);background:var(--paper);color:#1A1410;padding:.9rem 1.3rem;font-size:.85rem;z-index:70;transition:transform .35s ease;box-shadow:0 20px 40px -20px #000}
 .toast.on{visibility:visible;transform:translate(-50%,0)}
 
 @media(max-width:900px){
   .hero-grid,.story,.circle{grid-template-columns:1fr;gap:2.2rem}
   .hero-seal{display:none}
   .f-grid{grid-template-columns:1fr 1fr}
+  .hero{padding:3rem 0 2.5rem}
+  .view{padding:2.8rem 0 3.5rem}
 }
 @media(max-width:720px){
-  .menu-toggle{display:block}
-  nav{display:none;width:100%}
-  nav.open{display:block}
-  .bar{flex-wrap:wrap}
-  nav ul{flex-direction:column;padding:.6rem 0}
-  nav button{width:100%;text-align:left;border-bottom:0;border-left:2px solid transparent;padding:.7rem}
-  nav button[aria-current="page"]{border-left-color:var(--copper)}
-  .panel{grid-template-columns:1fr}
-  .f-grid{grid-template-columns:1fr}
+  :root{--shell:min(1180px,94vw)}
+  .bar{flex-wrap:wrap;gap:.6rem}
+  .wordmark{font-size:1rem}
+  .panel{grid-template-columns:1fr;padding:1.4rem}
+  .f-grid{grid-template-columns:1fr;gap:1.8rem}
+  .head{margin-bottom:2rem}
+  .grid.single{grid-template-columns:1fr}
+  .pull{font-size:1.2rem;padding-left:1rem}
+  .q button{font-size:1.05rem;padding:1.15rem 2.2rem 1.15rem 0}
+  .q .a{padding-right:0}
+  .drops{grid-template-columns:1fr}
+  .vault{padding:2.2rem 1.2rem}
+  .backbar .shell{flex-wrap:wrap;gap:.6rem}
+
+  /* Aanraakvlakken minstens 44px hoog — de vuistregel voor duimen. */
+  .buy,.solid,.ghost,.cart-btn,.tree-btn{min-height:46px}
+  .check input{width:20px;height:20px}
+
+  /* iOS zoomt automatisch in op invulvelden onder de 16px. */
+  .field input{font-size:16px}
+
+  /* De winkelwagen vult op de telefoon het hele scherm. */
+  .cart{width:100%;padding:1.2rem 1.2rem calc(1.2rem + var(--veilig-b))}
+  .pair{grid-template-columns:1fr}
+  .toast{left:1rem;right:1rem;bottom:calc(1rem + var(--veilig-b));transform:translateY(260%);width:auto}
+  .toast.on{transform:translateY(0)}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition-duration:.01ms!important}
@@ -356,15 +384,17 @@ body.hubmode{overflow:hidden}
 header .tree-btn{background:none;border:1px solid var(--line);color:var(--muted);padding:.5rem .9rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
 header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
 
-@media(max-width:760px){
-  #hub{height:auto;display:block;overflow:visible}
-  #tree{height:auto}
+@media(max-width:900px){
+  /* Op smalle schermen zou de boom met labels onleesbaar worden.
+     Daarom: boom als sfeerbeeld erboven, aanraakbare lijst eronder. */
+  #hub{height:auto;display:block;overflow:visible;padding-bottom:1rem}
+  #tree{height:auto;max-height:44vh}
   body.hubmode{overflow:auto}
   .hub-foot{display:block}
   #tree .lbl{display:none}
   .hub-hint{display:none}
-  #tree{max-height:46vh}
   .hub-list{display:block}
+  .hub-list button{padding:1.05rem 0;min-height:52px}
 }
 @media(prefers-reduced-motion:reduce){
   .leaf-inner,.faller{animation:none!important}
