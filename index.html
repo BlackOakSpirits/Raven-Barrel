@@ -156,6 +156,9 @@ nav button[aria-current="page"]{color:var(--bone);border-bottom-color:var(--copp
 .line-seal{position:absolute;top:-16px;right:-16px;width:74px;height:74px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.45));z-index:3}
 .label .cat{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:#6B5D4C;font-weight:600}
 .label h3{font-size:1.55rem;line-height:1.1}
+.voorraad{font-size:.78rem;letter-spacing:.02em;color:#5C5044;margin:.2rem 0 0}
+.voorraad b{color:#7C2A24;font-weight:600}
+.voorraad.op b{color:#7C2A24}
 .label .spec{font-size:.8rem;color:#5C5044;border-top:1px solid rgba(26,20,16,.2);padding-top:.7rem;margin-top:.3rem}
 .label .note{font-size:.82rem;color:#3B322A;min-height:3.2em}
 .price{font-family:var(--display);font-size:1.35rem;margin-top:.4rem}
@@ -629,6 +632,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
         <h3>First Flight</h3>
         <p class="note">Onze eerste botteling. Appel, vanille en een droge afdronk van eikenhout. De fles om mee te beginnen.</p>
         <p class="spec">70 cl · bourbon vat · batch 01 · 142 flessen</p>
+        <p class="voorraad" data-voorraad="first-flight" hidden></p>
         <p class="price">€ 58,50</p>
         <button class="buy" data-id="first-flight" data-name="First Flight" data-price="58.50">In winkelwagen</button>
       </article>
@@ -1050,6 +1054,13 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
 (function(){
   "use strict";
 
+  /* Adres van je worker. Die verzorgt zowel het inschrijven (/api/inschrijven)
+     als het afrekenen (/api/checkout) — één server, verschillende ingangen.
+     Na het uitrollen vervang je dit door je eigen adres,
+     bijvoorbeeld https://black-oak-kassa.jouwnaam.workers.dev */
+  var WORKER_URL='https://ravenandbarrel.levi-brouwer.workers.dev';
+
+
   /* ---- 18+ zegel ---- */
   var gate=document.getElementById('gate');
   var seal=document.getElementById('seal');
@@ -1301,18 +1312,48 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     });
   });
 
+  /* ---- voorraad ---- */
+  function toonVoorraad(){
+    fetch(WORKER_URL+'/api/voorraad')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d.voorraad) return;
+        document.querySelectorAll('[data-voorraad]').forEach(function(el){
+          var staat=d.voorraad[el.dataset.voorraad];
+          if(!staat) return;
+          var kaart=el.closest('.label');
+          var knop=kaart ? kaart.querySelector('.buy') : null;
+          el.hidden=false;
+
+          if(staat.beschikbaar<=0){
+            el.innerHTML='<b>Uitverkocht</b> — batch 02 volgt';
+            el.classList.add('op');
+            if(knop){
+              knop.disabled=true;
+              knop.textContent='Uitverkocht';
+              knop.style.opacity='.5';
+              knop.style.cursor='default';
+            }
+            return;
+          }
+          // Alleen tellen zodra het krap wordt; anders leest het als wanhoop.
+          if(staat.beschikbaar<=25){
+            el.innerHTML='Nog <b>'+staat.beschikbaar+'</b> '+(staat.beschikbaar===1?'fles':'flessen')+' beschikbaar';
+          } else {
+            el.textContent='Uit een batch van '+staat.totaal+' flessen';
+          }
+        });
+      })
+      .catch(function(){ /* voorraad onbekend: gewoon niets tonen */ });
+  }
+  toonVoorraad();
+
   var scrim=document.getElementById('scrim'), cartEl=document.getElementById('cart');
   function openCart(o){ cartEl.classList.toggle('on',o); scrim.classList.toggle('on',o); }
   document.getElementById('cart-open').addEventListener('click',function(){ openCart(true); });
   document.getElementById('cart-close').addEventListener('click',function(){ openCart(false); });
   scrim.addEventListener('click',function(){ openCart(false); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ openCart(false); } });
-  /* Adres van je worker. Die verzorgt zowel het inschrijven (/api/inschrijven)
-     als het afrekenen (/api/checkout) — één server, verschillende ingangen.
-     Na het uitrollen vervang je dit door je eigen adres,
-     bijvoorbeeld https://black-oak-kassa.jouwnaam.workers.dev */
-  var WORKER_URL='https://ravenandbarrel.levi-brouwer.workers.dev';
-
   var form=document.getElementById('checkout-form');
   document.getElementById('checkout').addEventListener('click',function(){
     if(!cart.length){ toast('Je winkelwagen is nog leeg.'); return; }
@@ -1353,8 +1394,9 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     })
     .catch(function(e){
       msg.style.borderColor='var(--wax-lit)';
-      msg.textContent='Betaling niet gelukt: '+e.message;
+      msg.textContent=e.message;
       knop.disabled=false; knop.textContent='Naar betalen';
+      toonVoorraad();
     });
   });
 
