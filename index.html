@@ -1236,26 +1236,15 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
   }
   function route(){ show(location.hash.replace(/^#\/?/,'')||'hub',false); }
 
-  /* Mollie stuurt de klant altijd naar hetzelfde adres terug, of de betaling
-     nu gelukt is of niet. We vragen daarom de status op voordat we bepalen
-     welke pagina we tonen. */
+  /* De worker heeft al bepaald of de betaling gelukt is en zet #/bedankt of
+     #/mislukt in het adres. Wij vullen hier alleen het ordernummer in. */
   (function(){
-    var q=new URLSearchParams(location.search);
-    var nr=q.get('order'), pid=q.get('pid');
+    var nr=new URLSearchParams(location.search).get('order');
     if(!nr || !/^[A-Z0-9-]{6,24}$/.test(nr)) return;
-
     var el=document.getElementById('ordernr');
+    if(!el) return;
     el.querySelector('b').textContent=nr;
     el.hidden=false;
-
-    if(!pid){ show('bedankt'); return; }
-
-    fetch(WORKER_URL+'/api/betaalstatus?pid='+encodeURIComponent(pid))
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        show(d.status==='paid' ? 'bedankt' : 'mislukt');
-      })
-      .catch(function(){ show('bedankt'); });
   })();
 
   document.getElementById('opnieuw').addEventListener('click',function(){
