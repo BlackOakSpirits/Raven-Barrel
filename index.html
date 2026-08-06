@@ -12,6 +12,12 @@
 <meta property="og:description" content="Kleine oplages uit zorgvuldig gekozen vaten. 18+, ID-controle bij bezorging.">
 <meta property="og:locale" content="nl_NL">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://blackoakspirits.nl/">
+<meta property="og:image" content="https://blackoakspirits.nl/deelafbeelding.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Black Oak Spirits — whisky uit losse vaten">
+<meta name="twitter:image" content="https://blackoakspirits.nl/deelafbeelding.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
@@ -430,6 +436,21 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
 .dank-blok svg{color:var(--copper);margin-bottom:.8rem}
 .dank-foot{margin-top:2rem;font-size:.85rem;color:var(--muted)}
 @media(max-width:760px){.dank-blokken{grid-template-columns:1fr}}
+
+/* ---- juridische pagina's ---- */
+.doc{max-width:70ch}
+.doc h3{font-size:1.25rem;margin:2.2rem 0 .7rem}
+.doc h3:first-of-type{margin-top:0}
+.doc p,.doc li{color:#B6BFC3;font-size:.95rem}
+.doc ul{padding-left:1.1rem;margin:0 0 1em}
+.doc li{margin-bottom:.4rem}
+.doc a{color:var(--copper)}
+.doc .bijgewerkt{font-size:.78rem;color:#5E6D74;border-top:1px solid var(--line);padding-top:1rem;margin-top:2.5rem}
+.kaart{border:1px solid var(--line);background:var(--cellar);padding:1.5rem;margin-bottom:1.2rem}
+.kaart h3{margin-top:0;font-size:1.1rem}
+.kaart p:last-child{margin-bottom:0}
+.contactgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2rem}
+@media(max-width:760px){.contactgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="locked">
@@ -725,6 +746,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
         <label class="check"><input type="checkbox" id="f-limited"><span><strong>Limited Edition</strong> — alleen bericht bij een eenmalige release</span></label>
         <label class="check" style="border-top:1px solid var(--line);padding-top:1rem"><input type="checkbox" id="fage"><span>Ik ben 18 jaar of ouder en wil deze mails ontvangen. Uitschrijven kan altijd.</span></label>
         <button class="solid" id="join">Aanmelden</button>
+        <p style="font-size:.78rem;color:var(--muted);margin:.9rem 0 0;line-height:1.5">We gebruiken je adres alleen voor deze mails en geven het niet door. Lees onze <button data-goto="privacy" style="background:none;border:0;padding:0;color:var(--copper);font-size:inherit;text-decoration:underline;cursor:pointer">privacyverklaring</button>.</p>
         <div class="msg" id="joinmsg"></div>
       </div>
     </div>
@@ -804,6 +826,153 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
       </div>
     </div>
   </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="view" id="contact">
+    <div class="head">
+      <p class="eyebrow">Contact</p>
+      <h2>Wie we zijn en waar je ons vindt.</h2>
+    </div>
+
+    <div class="contactgrid">
+      <div class="kaart">
+        <h3>Mailen</h3>
+        <p><a href="mailto:info@blackoakspirits.nl">info@blackoakspirits.nl</a></p>
+        <p style="font-size:.88rem;color:#8B9AA1;margin-top:.6rem">We reageren doorgaans binnen twee werkdagen. Gaat het over een bestelling, zet er dan je ordernummer bij.</p>
+      </div>
+      <div class="kaart">
+        <h3>Bedrijfsgegevens</h3>
+        <p>Black Oak Spirits<br>Johannes Bosboomstraat 39<br>3443 HD Woerden</p>
+        <p style="margin-top:.6rem">KvK 88993167<br>btw NL004680415B43</p>
+      </div>
+    </div>
+
+    <div class="doc">
+      <h3>Geen bezoekadres</h3>
+      <p>We hebben geen winkel of proeflokaal. Bestellingen lopen uitsluitend via deze site en worden bezorgd met leeftijdscontrole aan de deur.</p>
+
+      <h3>Samenwerken</h3>
+      <p>Ben je distilleerderij, bottelaar of slijter en denk je dat we iets voor elkaar kunnen betekenen? Mail gerust. Hetzelfde geldt voor vaten die je kwijt wilt.</p>
+    </div>
+  </section>
+
+  <!-- ============ VERZENDING ============ -->
+  <section class="view" id="verzending">
+    <div class="head">
+      <p class="eyebrow">Bezorging</p>
+      <h2>Verzending en leeftijdscontrole.</h2>
+      <p class="lede">Sterke drank mag alleen worden afgegeven aan iemand van 18 jaar of ouder. Dat betekent dat onze bezorging op een paar punten afwijkt van een gewoon pakketje.</p>
+    </div>
+
+    <div class="doc">
+      <h3>Controle bij de deur</h3>
+      <p>De bezorger vraagt om een geldig paspoort, ID-kaart of rijbewijs en controleert de geboortedatum. Is er niemand van 18 jaar of ouder aanwezig, dan wordt het pakket niet afgegeven.</p>
+      <ul>
+        <li>Bezorging op een afhaalpunt is niet mogelijk</li>
+        <li>Afgeven bij de buren is niet mogelijk</li>
+        <li>Zonder geldig legitimatiebewijs gaat het pakket retour</li>
+      </ul>
+      <p>Gaat een pakket retour, dan nemen we contact op om een nieuw moment af te spreken. De kosten van een tweede bezorgpoging zijn voor onze rekening; lukt het ook dan niet, dan verrekenen we de verzendkosten met de terugbetaling.</p>
+
+      <h3>Bezorggebied en levertijd</h3>
+      <p>We bezorgen alleen binnen Nederland. Bestellingen worden binnen twee werkdagen verzonden. Je krijgt een track-and-tracecode zodra het pakket onderweg is.</p>
+
+      <h3>Verzendkosten</h3>
+      <p>De kosten voor bezorging met leeftijdscontrole staan bij het afrekenen vermeld, voordat je betaalt.</p>
+
+      <h3>Retourneren</h3>
+      <p>Je hebt veertien dagen bedenktijd na ontvangst. Voor sterke drank geldt daarbij één belangrijke uitzondering: is het zegel van de fles verbroken, dan vervalt het herroepingsrecht. Een geopende fles kunnen we om hygiënische redenen niet terugnemen.</p>
+      <p>Ongeopend retourneren kan wel. Mail ons met je ordernummer, dan spreken we af hoe je de fles terugstuurt. De kosten van het terugsturen zijn voor jou, tenzij er iets mis is met de fles of we een fout hebben gemaakt.</p>
+
+      <h3>Beschadigd aangekomen</h3>
+      <p>Glas breekt soms. Maak een foto van de doos en de fles en mail die naar <a href="mailto:info@blackoakspirits.nl">info@blackoakspirits.nl</a> met je ordernummer. We sturen een vervangende fles of betalen terug.</p>
+    </div>
+  </section>
+
+  <!-- ============ PRIVACY ============ -->
+  <section class="view" id="privacy">
+    <div class="head">
+      <p class="eyebrow">Privacy</p>
+      <h2>Wat we bewaren, en waarom.</h2>
+      <p class="lede">Kort samengevat: we verzamelen zo min mogelijk, verkopen niets door en je kunt altijd vragen om verwijdering.</p>
+    </div>
+
+    <div class="doc">
+      <h3>Wie is verantwoordelijk</h3>
+      <p>Black Oak Spirits, Johannes Bosboomstraat 39, 3443 HD Woerden, KvK 88993167. Vragen over je gegevens kun je stellen via <a href="mailto:info@blackoakspirits.nl">info@blackoakspirits.nl</a>.</p>
+
+      <h3>The Oak Circle en Limited Edition</h3>
+      <p>Meld je je aan voor onze mails, dan bewaren we je e-mailadres, je voornaam als je die invult, waar je bericht over wilt krijgen, en de datum van aanmelding. We gebruiken dat uitsluitend om je te mailen over nieuwe bottelingen, limited editions en promoties.</p>
+      <p>De grondslag is je toestemming: je vinkt zelf aan dat je deze mails wilt ontvangen. Je kunt die toestemming altijd intrekken door ons te mailen. We bewaren je gegevens tot je je uitschrijft.</p>
+
+      <h3>Bestellingen</h3>
+      <p>Bestel je een fles, dan verwerken we je naam, e-mailadres en bezorgadres. Dat is nodig om de overeenkomst uit te voeren: we moeten weten waar het pakket heen moet en hoe we je kunnen bereiken. Bestelgegevens bewaren we zeven jaar, omdat de Belastingdienst dat voorschrijft.</p>
+      <p>Je betaling verloopt via Mollie. Wij zien of een betaling geslaagd is, maar krijgen geen rekeningnummer of kaartgegevens te zien.</p>
+
+      <h3>Leeftijdscontrole</h3>
+      <p>Bij binnenkomst op de site bevestig je dat je 18 jaar of ouder bent. Dat wordt alleen in je eigen browser onthouden, dertig dagen lang; wij ontvangen daar niets van. De controle bij bezorging doet de bezorger, die het legitimatiebewijs bekijkt maar niet kopieert.</p>
+
+      <h3>Wie je gegevens verder verwerkt</h3>
+      <ul>
+        <li><strong>Google</strong> — onze klantadministratie staat in een Google Sheet</li>
+        <li><strong>Cloudflare</strong> — verwerkt de aanmeldingen en bestellingen van de site</li>
+        <li><strong>Resend</strong> — verstuurt de orderbevestigingen</li>
+        <li><strong>Mollie</strong> — verwerkt de betalingen</li>
+        <li><strong>De bezorger</strong> — krijgt je naam en adres om te kunnen bezorgen</li>
+      </ul>
+      <p>We verkopen je gegevens niet en geven ze niet door aan anderen dan hierboven genoemd, tenzij we daartoe wettelijk verplicht zijn.</p>
+
+      <h3>Cookies</h3>
+      <p>Deze site plaatst geen tracking- of advertentiecookies. We onthouden alleen in je eigen browser dat je hebt bevestigd 18 of ouder te zijn. Daarom zie je hier ook geen cookiemelding.</p>
+
+      <h3>Je rechten</h3>
+      <p>Je mag opvragen welke gegevens we van je hebben, ze laten corrigeren of laten verwijderen, en bezwaar maken tegen het gebruik ervan. Mail ons en we regelen het binnen een maand. Kom je er met ons niet uit, dan kun je een klacht indienen bij de Autoriteit Persoonsgegevens.</p>
+
+      <p class="bijgewerkt">Laatst bijgewerkt: augustus 2026</p>
+    </div>
+  </section>
+
+  <!-- ============ BETALING MISLUKT ============ -->
+  <section class="view" id="mislukt">
+    <div class="dank">
+      <p class="eyebrow">Betaling niet afgerond</p>
+      <h2>Er is niets afgeschreven.</h2>
+      <p class="lede">De betaling is afgebroken of niet gelukt. Je bestelling is daarom niet geplaatst en er is geen geld van je rekening gegaan.</p>
+
+      <div class="dank-blokken">
+        <div class="dank-blok">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+          <h3>Gewoon opnieuw proberen</h3>
+          <p>Je winkelwagen staat nog klaar. Klik hieronder, controleer je gegevens en probeer het nog eens — eventueel met een andere betaalmethode.</p>
+        </div>
+
+        <div class="dank-blok">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <h3>Blijft het misgaan?</h3>
+          <p>Mail ons op info@blackoakspirits.nl met wat je wilde bestellen. Dan kijken we mee en regelen we het handmatig.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:1.6rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+        <button class="solid" style="width:auto;padding:.9rem 2rem" id="opnieuw">Opnieuw proberen</button>
+        <button class="ghost" data-goto="winkel">Terug naar de winkel</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AANMELDING BEVESTIGD ============ -->
+  <section class="view" id="bevestigd">
+    <div class="dank">
+      <p class="eyebrow">The Oak Circle</p>
+      <h2>Je staat op de lijst.</h2>
+      <p class="lede">Je aanmelding is bevestigd. Je hoort van ons zodra er een nieuw vat klaar is — en 24 uur voordat de fles hier verschijnt.</p>
+      <p style="font-size:.88rem;color:var(--muted);max-width:46ch;margin:1.6rem auto 0">Hooguit één mail per maand, en geen mail als er niets te melden is. Uitschrijven kan altijd door ons te mailen.</p>
+      <div style="margin-top:1.8rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+        <button class="ghost" data-goto="winkel">Naar de winkel</button>
+        <button class="ghost" data-goto="hub">Naar de boom</button>
+      </div>
+    </div>
+  </section>
 </main>
 <footer>
   <div class="shell">
@@ -823,13 +992,13 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
         </ul>
       </div>
       <div>
-        <h4>Bezorging &amp; leeftijd</h4>
+        <h4>Informatie</h4>
         <ul>
-          <li>Levering alleen binnen Nederland</li>
-          <li>ID-controle aan de deur, 18+</li>
-          <li>Geen levering op afhaalpunten</li>
-          <li>Verzending binnen 2 werkdagen</li>
+          <li><button data-goto="verzending">Verzending &amp; leeftijd</button></li>
+          <li><button data-goto="contact">Contact</button></li>
+          <li><button data-goto="privacy">Privacy</button></li>
         </ul>
+        <p style="margin-top:1rem;font-size:.8rem">info@blackoakspirits.nl</p>
       </div>
     </div>
     <div class="f-bottom">
@@ -1034,8 +1203,8 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
   document.getElementById('navpunten').innerHTML=punten;
 
   /* ---- navigatie ---- */
-  var PAGES=['winkel','verhaal','circle','limited','faq','bedankt'];
-  var TITLES={winkel:'Raven & Barrel',verhaal:'Ons verhaal',circle:'The Oak Circle',limited:'Limited Edition',faq:'Veelgestelde vragen',bedankt:'Bedankt'};
+  var PAGES=['winkel','verhaal','circle','limited','faq','bedankt','contact','verzending','privacy','mislukt','bevestigd'];
+  var TITLES={winkel:'Raven & Barrel',verhaal:'Ons verhaal',circle:'The Oak Circle',limited:'Limited Edition',faq:'Veelgestelde vragen',bedankt:'Bedankt',contact:'Contact',verzending:'Verzending',privacy:'Privacy',mislukt:'Betaling niet gelukt',bevestigd:'Aanmelding bevestigd'};
   var hub=document.getElementById('hub'), pagina=document.getElementById('page');
 
   function show(id,push){
@@ -1056,16 +1225,32 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
   }
   function route(){ show(location.hash.replace(/^#\/?/,'')||'hub',false); }
 
-  /* Mollie stuurt de klant terug met ?order=BOS-... in het adres. */
+  /* Mollie stuurt de klant altijd naar hetzelfde adres terug, of de betaling
+     nu gelukt is of niet. We vragen daarom de status op voordat we bepalen
+     welke pagina we tonen. */
   (function(){
-    var nr=new URLSearchParams(location.search).get('order');
-    if(nr && /^[A-Z0-9-]{6,24}$/.test(nr)){
-      var el=document.getElementById('ordernr');
-      el.querySelector('b').textContent=nr;
-      el.hidden=false;
-      if(!location.hash) location.hash='#/bedankt';
-    }
+    var q=new URLSearchParams(location.search);
+    var nr=q.get('order'), pid=q.get('pid');
+    if(!nr || !/^[A-Z0-9-]{6,24}$/.test(nr)) return;
+
+    var el=document.getElementById('ordernr');
+    el.querySelector('b').textContent=nr;
+    el.hidden=false;
+
+    if(!pid){ show('bedankt'); return; }
+
+    fetch(WORKER_URL+'/api/betaalstatus?pid='+encodeURIComponent(pid))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        show(d.status==='paid' ? 'bedankt' : 'mislukt');
+      })
+      .catch(function(){ show('bedankt'); });
   })();
+
+  document.getElementById('opnieuw').addEventListener('click',function(){
+    show('winkel');
+    openCart(true);
+  });
 
   function koppel(el){
     el.addEventListener('click',function(){ show(el.dataset.view||el.dataset.goto); });
@@ -1203,7 +1388,9 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     .then(function(r){ return r.json(); })
     .then(function(d){
       if(d.fout) throw new Error(d.fout);
-      msg.textContent=(naam?naam+', je':'Je')+' staat op de lijst'+(d.nieuw?'':' — je voorkeuren zijn bijgewerkt')+'.';
+      msg.textContent = d.bevestiging
+        ? 'Bijna klaar — we hebben je een mail gestuurd. Klik op de link erin om je aanmelding te bevestigen. Niets gezien? Kijk even in je spamfolder.'
+        : (naam?naam+', je':'Je')+' staat op de lijst'+(d.nieuw?'':' — je voorkeuren zijn bijgewerkt')+'.';
       document.getElementById('femail').value=''; document.getElementById('fname').value='';
       document.getElementById('fage').checked=false;
     })
