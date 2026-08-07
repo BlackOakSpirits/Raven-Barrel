@@ -745,6 +745,9 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
         <h3 style="margin-bottom:1.2rem">Sluit je aan</h3>
         <label class="field"><span>Voornaam</span><input type="text" id="fname" placeholder="Hoe mogen we je aanspreken?"></label>
         <label class="field"><span>E-mailadres</span><input type="email" id="femail" placeholder="jij@voorbeeld.nl" required></label>
+        <div style="position:absolute;left:-9999px" aria-hidden="true">
+          <label>Laat dit veld leeg<input type="text" id="f-website" tabindex="-1" autocomplete="off"></label>
+        </div>
         <p class="veldkop">Waar wil je bericht over krijgen?</p>
         <label class="check"><input type="checkbox" id="f-circle" checked><span><strong>The Oak Circle</strong> — nieuwe bottelingen, proefnotities en promoties</span></label>
         <label class="check"><input type="checkbox" id="f-limited"><span><strong>Limited Edition</strong> — alleen bericht bij een eenmalige release</span></label>
@@ -1414,7 +1417,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     fetch(WORKER_URL+'/api/inschrijven',{
       method:'POST',
       headers:{'content-type':'application/json'},
-      body:JSON.stringify({email:email,naam:naam,circle:circle,limited:limited,leeftijd:true})
+      body:JSON.stringify({email:email,naam:naam,circle:circle,limited:limited,leeftijd:true,website:document.getElementById('f-website').value})
     })
     .then(function(r){ return r.json(); })
     .then(function(d){
