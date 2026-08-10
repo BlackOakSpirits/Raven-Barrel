@@ -78,6 +78,7 @@ p{margin:0 0 1em}
 #gate[hidden]{display:none}
 .gate-inner{max-width:520px}
 .gate-mark{font-family:var(--display);letter-spacing:.42em;font-size:.8rem;color:var(--copper);text-transform:uppercase;margin-bottom:2.4rem}
+.gate-logo{height:74px;width:auto;margin:0 auto 1.6rem;opacity:.95}
 .gate-inner h1{font-size:clamp(2rem,5vw,3rem);margin-bottom:.6rem}
 .gate-inner p{color:var(--muted);font-size:.95rem;max-width:38ch;margin-inline:auto}
 
@@ -114,7 +115,8 @@ p{margin:0 0 1em}
 }
 header{position:sticky;top:0;z-index:40;background:rgba(12,18,22,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 0}
-.wordmark{font-family:var(--display);font-size:1.15rem;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.wordmark{font-family:var(--display);font-size:1.15rem;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:.6rem}
+.merkteken{height:34px;width:auto;flex-shrink:0}
 .wordmark span{color:var(--copper)}
 nav ul{display:flex;gap:.2rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 nav button{
@@ -256,6 +258,7 @@ nav button[aria-current="page"]{color:var(--bone);border-bottom-color:var(--copp
 /* footer */
 footer{border-top:1px solid var(--line);background:var(--char);padding:3rem 0 2rem;font-size:.85rem;color:var(--muted)}
 .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+.footer-logo{width:168px;height:auto;opacity:.9;display:block}
 footer h4{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone);margin:0 0 .9rem;font-weight:600;font-family:var(--body)}
 footer ul{list-style:none;margin:0;padding:0}
 footer li{margin-bottom:.5rem}
@@ -467,7 +470,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
   </div>
 
   <div class="gate-inner">
-    <p class="gate-mark">Black Oak Spirits</p>
+    <img class="gate-logo" src="merkteken.png" alt="Black Oak Spirits">
     <h1 id="gate-title">Ben je 18 of ouder?</h1>
     <p>Breek het zegel om de winkel binnen te gaan. We verkopen geen alcohol aan personen onder de 18 jaar.</p>
 
@@ -546,7 +549,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
 <div class="age-strip">Leeftijdscontrole bij bezorging · geldig ID vereist · geen verkoop onder 18 jaar</div>
 <header>
   <div class="shell bar">
-    <div class="wordmark">Black <span>Oak</span> Spirits</div>
+    <div class="wordmark"><img class="merkteken" src="merkteken.png" alt="">Black <span>Oak</span> Spirits</div>
     <div style="display:flex;gap:.6rem;align-items:center">
       <button class="tree-btn" id="to-hub">De boom</button>
       <button class="cart-btn" id="cart-open" hidden>Winkelwagen <b id="count">0</b></button>
@@ -979,8 +982,8 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
   <div class="shell">
     <div class="f-grid">
       <div>
-        <div class="wordmark" style="font-size:1rem">Black <span>Oak</span> Spirits</div>
-        <p style="margin-top:.9rem;max-width:36ch">Onafhankelijke bottelaar in Nederland. Kleine oplages uit zorgvuldig gekozen vaten.</p>
+        <img class="footer-logo" src="logo-volledig.png" alt="Black Oak Spirits">
+        <p style="margin-top:1rem;max-width:36ch">Onafhankelijke bottelaar in Nederland. Kleine oplages uit zorgvuldig gekozen vaten.</p>
         <span class="nix">NIX18 · geen alcohol onder 18</span>
       </div>
       <div>
