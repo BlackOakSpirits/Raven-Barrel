@@ -549,7 +549,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     <div class="wordmark">Black <span>Oak</span> Spirits</div>
     <div style="display:flex;gap:.6rem;align-items:center">
       <button class="tree-btn" id="to-hub">De boom</button>
-      <button class="cart-btn" id="cart-open">Winkelwagen <b id="count">0</b></button>
+      <button class="cart-btn" id="cart-open" hidden>Winkelwagen <b id="count">0</b></button>
     </div>
   </div>
 </header>
@@ -623,20 +623,14 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
     <div class="head" style="margin-top:3.5rem">
       <p class="eyebrow">The Spirits</p>
       <h2>Raven &amp; Barrel</h2>
+      <p class="lede">Onze eerste lijn. Whisky uit losse vaten, gebotteld in Nederland — nog even geduld.</p>
     </div>
 
-    <div class="grid single">
-      <article class="label">
-        <svg class="line-seal" viewBox="0 0 200 200" aria-label="Zegel Raven en Barrel"><use href="#sealart"></use></svg>
-        <p class="cat">Single malt · 43%</p>
-        <h3>First Flight</h3>
-        <p class="note">Onze eerste botteling. Appel, vanille en een droge afdronk van eikenhout. De fles om mee te beginnen.</p>
-        <p class="spec">70 cl · bourbon vat · batch 01 · 142 flessen</p>
-        <p class="voorraad" data-voorraad="first-flight" hidden></p>
-        <p class="price">€ 58,50</p>
-        <button class="buy" data-id="first-flight" data-name="First Flight" data-price="58.50">In winkelwagen</button>
-      </article>
-
+    <div class="vault">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="1.2" style="margin:0 auto 1.2rem"><path d="M4 7h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M3 4h18v3H3z"/><path d="M10 11h4"/></svg>
+      <h3>Het eerste vat is nog niet gekozen</h3>
+      <p>We zeggen pas iets over een botteling als het vat gekocht is en we weten hoeveel flessen het worden. Wie in The Oak Circle zit, krijgt bericht 24 uur voordat de eerste fles hier verschijnt — met een gereserveerd deel van de oplage.</p>
+      <button class="solid" style="width:auto;padding:.9rem 2rem;margin-top:1.5rem" data-goto="circle">Zet me op de lijst</button>
     </div>
 
     <div class="panel">
@@ -663,7 +657,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
         <span class="bs-tag live">Eerste tak · leverbaar</span>
       </div>
       <div class="bs-body">
-        <p>Raven &amp; Barrel begon met een simpele vraag: waarom moet je vijftien jaar wachten om een goede whisky op de markt te brengen, als er in Schotland en Ierland duizenden vaten liggen die al klaar zijn?</p>
+        <p>Raven &amp; Barrel begon met een simpele vraag: waarom moet je vijftien jaar wachten om een goede whisky op de markt te brengen, als er al volgroeide vaten klaarliggen?</p>
         <p>Distilleerderijen verkopen die vaten. Niet omdat er iets mis mee is, maar omdat ze meer produceren dan ze onder eigen naam kwijt kunnen. Wij proeven, kiezen, kopen het hele vat en laten het in Nederland bottelen. Zonder karamelkleuring, zonder koudefiltering, zonder een verhaal dat we niet kunnen waarmaken.</p>
         <p class="pull">Eén vat, één batch, één keer. Wat op is, is op.</p>
         <p>Dat betekent dat onze flessen niet altijd hetzelfde smaken. Een tweede batch van dezelfde botteling komt uit een ander vat, en dat proef je. Wij zien dat niet als probleem maar als het hele punt: je drinkt een specifiek vat uit een specifiek jaar, geen gestandaardiseerd product.</p>
@@ -1338,7 +1332,7 @@ header .tree-btn:hover{border-color:var(--copper);color:var(--bone)}
       })
       .catch(function(){ /* voorraad onbekend: gewoon niets tonen */ });
   }
-  toonVoorraad();
+  if(document.querySelector('[data-voorraad]')) toonVoorraad();
 
   var scrim=document.getElementById('scrim'), cartEl=document.getElementById('cart');
   function openCart(o){ cartEl.classList.toggle('on',o); scrim.classList.toggle('on',o); }
